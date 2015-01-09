@@ -293,5 +293,35 @@ namespace problema_bal
 
             return sb.ToString().Substring(0);
         }
+
+        public String getMejoraArea(String idMejora) 
+        {
+            objProblemaDal = new problem_dal();
+            String idarea = "";
+            int idm = Convert.ToInt32(idMejora);
+
+            idarea = objProblemaDal.selectMejoraArea(idm).ToString();
+
+            return idarea;
+        }
+
+        public String[] getUsrArea(String idmejora) 
+        {
+            objProblemaDal = new problem_dal();
+            login_dal log = new login_dal();
+            String[] dato = new String[2];
+
+            int idm = Convert.ToInt32(idmejora);
+            String usr = objProblemaDal.selectNickUsrMA(idm);
+
+            String oUsr, oAre;
+
+            log.selectAreaUsr(usr, out oAre, out oUsr);
+
+            dato[0] = oAre;
+            dato[1] = oUsr;
+
+            return dato;
+        }
     }
 }

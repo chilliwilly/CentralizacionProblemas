@@ -26,6 +26,8 @@ namespace CentralizacionProblemas
 
         protected void gvListaProblema_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            objProblemaBal = new problem_bal();
+
             if (e.CommandName == "bVer") 
             {
                 int fIndex = ((GridViewRow)((LinkButton)e.CommandSource).NamingContainer).RowIndex;
@@ -37,6 +39,7 @@ namespace CentralizacionProblemas
                 lblObs.Text = ((Label)gvListaProblema.Rows[fIndex].FindControl("PROBLEMA_ID")).Text;
                 lblTituloSgto.Text = ((Label)gvListaProblema.Rows[fIndex].FindControl("PROBLEMA_ID")).Text;
                 lblTituloMejora.Text = ((Label)gvListaProblema.Rows[fIndex].FindControl("PROBLEMA_ID")).Text;
+                cddArea.SelectedValue = objProblemaBal.getMejoraArea(((Label)gvListaProblema.Rows[fIndex].FindControl("PROBLEMA_ID")).Text);
 
                 Session["id_problema"] = ((Label)gvListaProblema.Rows[fIndex].FindControl("PROBLEMA_ID")).Text;
 

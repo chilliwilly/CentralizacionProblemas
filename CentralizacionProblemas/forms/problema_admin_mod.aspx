@@ -3,7 +3,7 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css" />
     <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 </asp:Content>
@@ -51,16 +51,6 @@
                 <tr>
                     <td>Area Mejora &nbsp;</td>
                     <td>
-                        <%--<asp:CascadingDropDown ID="cddAreaInformante" runat="server" TargetControlID="cboAreaMejora" LoadingText="Cargando Area..." PromptText="Seleccione Area" 
-                                ServicePath="~/asmx_files/problema_llenado_cbo.asmx" ServiceMethod="getAreaMejoraFiltro" 
-                                Category="amejora_id">
-                        </asp:CascadingDropDown>
-                        <asp:DropDownList ID="cboAreaMejora" runat="server" Width="170px" onchange="cambiaAreaInformante();">
-                        </asp:DropDownList>
-                        <asp:RequiredFieldValidator ID="rfvAreaMejora" runat="server" ErrorMessage="Debe seleccionar area mejora" Display="None" ControlToValidate="cboAreaMejora"></asp:RequiredFieldValidator>
-                        <asp:ValidatorCalloutExtender ID="vceAreaMejora" runat="server" TargetControlID="rfvAreaMejora" HighlightCssClass="validatorCalloutHighlight">
-                        </asp:ValidatorCalloutExtender>--%>
-
                         <asp:CheckBoxList ID="chkListArea" runat="server" oninit="chkListArea_Init" RepeatColumns="3">
                         </asp:CheckBoxList>
                     </td>
@@ -69,15 +59,6 @@
                     <td></td>
                     <td>Estado Mejora &nbsp;</td>
                     <td>
-                        <%--<asp:CascadingDropDown ID="cddInformante" runat="server" TargetControlID="cboEstadoBusca" LoadingText="Cargando Estados..." PromptText="Seleccione Estados" 
-                                ServicePath="~/asmx_files/problema_llenado_cbo.asmx" ServiceMethod="getEstadoSinCerrar" Category="estado_id">
-                        </asp:CascadingDropDown>
-                        <asp:DropDownList ID="cboEstadoBusca" runat="server" Width="170px" onchange="cambiaInformante();">
-                        </asp:DropDownList>
-                        <asp:RequiredFieldValidator ID="rfvEstado" runat="server" ErrorMessage="Debe seleccionar une estado" Display="None" ControlToValidate="cboEstadoBusca"></asp:RequiredFieldValidator>
-                        <asp:ValidatorCalloutExtender ID="vceEstado" runat="server" TargetControlID="rfvEstado" HighlightCssClass="validatorCalloutHighlight">
-                        </asp:ValidatorCalloutExtender>--%>
-
                         <asp:CheckBoxList ID="chkListEstado" runat="server" oninit="chkListEstado_Init" RepeatColumns="2">
                         </asp:CheckBoxList>
                     </td>
@@ -90,9 +71,6 @@
                         <asp:CalendarExtender ID="ceFechaD" TargetControlID="txtFechaD" runat="server"
                                 FirstDayOfWeek="Monday" Format="dd/MM/yyyy">
                         </asp:CalendarExtender>
-                        <%--<asp:RequiredFieldValidator ID="rfvFechaD" runat="server" ErrorMessage="Debe seleccionar una fecha" Display="None" ControlToValidate="txtFechaD"></asp:RequiredFieldValidator>
-                        <asp:ValidatorCalloutExtender ID="vceFechaD" runat="server" TargetControlID="rfvFechaD" HighlightCssClass="validatorCalloutHighlight">
-                        </asp:ValidatorCalloutExtender>--%>
                     </td>
                     <td></td>
                     <td></td>

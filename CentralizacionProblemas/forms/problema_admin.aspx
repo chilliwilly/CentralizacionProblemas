@@ -3,7 +3,7 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-    <link type="text/css" rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <link type="text/css" rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css" />
     <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>    
     <%--//code.jquery.com/jquery-2.1.3.min.js //ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js--%>

@@ -347,5 +347,63 @@ namespace problema_dal
             }
             return dt;
         }
+
+        public int selectMejoraArea(int nroMejora) 
+        {
+            int nro = 0;
+
+            using (OracleConnection con = new OracleConnection(conStr)) 
+            {
+                con.Open();
+                String qry = "SELECT AMEJORA_ID FROM TBLPROBLEMA WHERE PROBLEMA_ID = :nroMejora";
+                using (OracleCommand cmd = new OracleCommand(qry, con)) 
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new OracleParameter("nroMejora", OracleDbType.Int32)).Value = nroMejora;
+                    cmd.Parameters["nroMejora"].Direction = ParameterDirection.Input;
+
+                    using (OracleDataReader odr = cmd.ExecuteReader()) 
+                    {
+                        while (odr.Read()) 
+                        {
+                            nro = Convert.ToInt32(odr["AMEJORA_ID"].ToString());
+                        }
+                    }
+                }
+                con.Close();
+            }
+            return nro;
+        }
+
+        public String selectNickUsrMA(int idMejora) 
+        {
+            String nick = "";
+
+            using (OracleConnection con = new OracleConnection(conStr)) 
+            {
+                con.Open();
+                String qry = "SELECT USER_NICK FROM TBLUSUARIO WHERE USER_NOMBRE||' '||USER_PATERNO " +
+                             "= (SELECT SEGUIMIENTO_RESPONSABLE FROM TBLDETALLESEGUIMIENTO WHERE SEGUIMIENTO_ID " +
+                             "= (SELECT MAX(SEGUIMIENTO_ID) FROM TBLDETALLESEGUIMIENTO WHERE PROBLEMA_ID = :idMejora) AND PROBLEMA_ID = :idMejora)";
+                using (OracleCommand cmd = new OracleCommand(qry, con)) 
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new OracleParameter("idMejora", OracleDbType.Int32)).Value = idMejora;
+                    cmd.Parameters["idMejora"].Direction = ParameterDirection.Input;
+
+                    using (OracleDataReader odr = cmd.ExecuteReader()) 
+                    {
+                        while (odr.Read())
+                        {
+                            nick = odr["USER_NICK"].ToString();
+                        }
+                    }
+                }
+                con.Close();
+            }
+            return nick;
+        }
     }
 }

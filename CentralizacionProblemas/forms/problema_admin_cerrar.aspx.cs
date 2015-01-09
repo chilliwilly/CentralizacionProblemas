@@ -94,7 +94,11 @@ namespace CentralizacionProblemas.forms
 
                 Session["id_problema"] = ((Label)gvListaProblema.Rows[fIndex].FindControl("PROBLEMA_ID")).Text;
 
+                String[] dUsr = objProblemaBal.getUsrArea(((Label)gvListaProblema.Rows[fIndex].FindControl("PROBLEMA_ID")).Text);
                 //txtResponsable.Text = objProblemaBal.getNombreLogin(Session["nom_logeado"].ToString());
+
+                cddArea.SelectedValue = dUsr[0];
+                cddResponsable.SelectedValue = dUsr[1];
 
                 gvListaProblema.Rows[fIndex].BackColor = ColorTranslator.FromHtml("#A1DCF2");
 
