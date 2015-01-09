@@ -1,0 +1,5 @@
+C:\Users\wcontreras\Documents\Visual Studio 2010\Projects\CentralizacionProblemas\problema_class\bin\Debug\problema_class.dll
+C:\Users\wcontreras\Documents\Visual Studio 2010\Projects\CentralizacionProblemas\problema_class\bin\Debug\problema_class.pdb
+C:\Users\wcontreras\Documents\Visual Studio 2010\Projects\CentralizacionProblemas\problema_class\obj\Debug\problema_class.dll
+C:\Users\wcontreras\Documents\Visual Studio 2010\Projects\CentralizacionProblemas\problema_class\obj\Debug\problema_class.pdb
+C:\Users\wcontreras\Documents\Visual Studio 2010\Projects\CentralizacionProblemas\problema_class\obj\Debug\problema_class.csprojResolveAssemblyReference.cache

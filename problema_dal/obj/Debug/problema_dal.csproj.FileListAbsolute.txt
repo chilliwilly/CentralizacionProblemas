@@ -1,0 +1,6 @@
+C:\Users\wcontreras\Documents\Visual Studio 2010\Projects\CentralizacionProblemas\problema_dal\bin\Debug\problema_dal.dll
+C:\Users\wcontreras\Documents\Visual Studio 2010\Projects\CentralizacionProblemas\problema_dal\bin\Debug\problema_dal.pdb
+C:\Users\wcontreras\Documents\Visual Studio 2010\Projects\CentralizacionProblemas\problema_dal\obj\Debug\problema_dal.dll
+C:\Users\wcontreras\Documents\Visual Studio 2010\Projects\CentralizacionProblemas\problema_dal\obj\Debug\problema_dal.pdb
+C:\Users\wcontreras\Documents\Visual Studio 2010\Projects\CentralizacionProblemas\problema_dal\bin\Debug\Oracle.DataAccess.dll
+C:\Users\wcontreras\Documents\Visual Studio 2010\Projects\CentralizacionProblemas\problema_dal\obj\Debug\problema_dal.csprojResolveAssemblyReference.cache

@@ -1,0 +1,14 @@
+c:\users\wcontreras\documents\visual studio 2010\Projects\CentralizacionProblemas\CentralizacionProblemas\bin\CentralizacionProblemas.dll
+c:\users\wcontreras\documents\visual studio 2010\Projects\CentralizacionProblemas\CentralizacionProblemas\bin\CentralizacionProblemas.pdb
+c:\users\wcontreras\documents\visual studio 2010\Projects\CentralizacionProblemas\CentralizacionProblemas\obj\Debug\CentralizacionProblemas.dll
+c:\users\wcontreras\documents\visual studio 2010\Projects\CentralizacionProblemas\CentralizacionProblemas\obj\Debug\CentralizacionProblemas.pdb
+c:\users\wcontreras\documents\visual studio 2010\Projects\CentralizacionProblemas\CentralizacionProblemas\bin\AjaxMin.dll
+c:\users\wcontreras\documents\visual studio 2010\Projects\CentralizacionProblemas\CentralizacionProblemas\obj\Debug\CentralizacionProblemas.csprojResolveAssemblyReference.cache
+C:\Users\wcontreras\Documents\Visual Studio 2010\Projects\CentralizacionProblemas\CentralizacionProblemas\bin\problema_bal.dll
+C:\Users\wcontreras\Documents\Visual Studio 2010\Projects\CentralizacionProblemas\CentralizacionProblemas\bin\problema_class.dll
+C:\Users\wcontreras\Documents\Visual Studio 2010\Projects\CentralizacionProblemas\CentralizacionProblemas\bin\problema_bal.pdb
+C:\Users\wcontreras\Documents\Visual Studio 2010\Projects\CentralizacionProblemas\CentralizacionProblemas\bin\problema_class.pdb
+C:\Users\wcontreras\Documents\Visual Studio 2010\Projects\CentralizacionProblemas\CentralizacionProblemas\bin\problema_dal.dll
+C:\Users\wcontreras\Documents\Visual Studio 2010\Projects\CentralizacionProblemas\CentralizacionProblemas\bin\problema_dal.pdb
+C:\Users\wcontreras\Documents\Visual Studio 2010\Projects\CentralizacionProblemas\CentralizacionProblemas\bin\Oracle.DataAccess.dll
+C:\Users\wcontreras\Documents\Visual Studio 2010\Projects\CentralizacionProblemas\CentralizacionProblemas\bin\Oracle.Web.dll
