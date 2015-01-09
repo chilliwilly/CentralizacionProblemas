@@ -5,7 +5,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link type="text/css" rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
     <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script type="text/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>    
     <%--//code.jquery.com/jquery-2.1.3.min.js //ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js--%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -25,39 +25,7 @@
                     $(document).ready(function () {
                         $("<div id='dialog' title='Fecha Desde'><p>Debe seleccionar fecha creacion mejora.</p></div>").dialog({ modal: true });
                     });
-                }
-
-                $(function () {
-                    $("[id*=chkTodoArea]").bind("click", function () {
-                        if ($(this).is(":checked")) {
-                            $("[id*=chkListArea] input").attr("checked", "checked");
-                        } else {
-                            $("[id*=chkListArea] input").removeAttr("checked");
-                        }
-                    });
-                    $("[id*=chkListArea] input").bind("click", function () {
-                        if ($("[id*=chkListArea] input:checked").length == $("[id*=chkListArea] input").length) {
-                            $("[id*=chkTodoArea]").attr("checked", "checked");
-                        } else {
-                            $("[id*=chkTodoArea]").removeAttr("checked");
-                        }
-                    });
-
-                    $("[id*=chkTodoEstado]").bind("click", function () {
-                        if ($(this).is(":checked")) {
-                            $("[id*=chkListEstado] input").attr("checked", "checked");
-                        } else {
-                            $("[id*=chkListEstado] input").removeAttr("checked");
-                        }
-                    });
-                    $("[id*=chkListEstado] input").bind("click", function () {
-                        if ($("[id*=chkListEstado] input:checked").length == $("[id*=chkListEstado] input").length) {
-                            $("[id*=chkTodoEstado]").attr("checked", "checked");
-                        } else {
-                            $("[id*=chkTodoEstado]").removeAttr("checked");
-                        }
-                    });
-                });              
+                }          
             </script>
     <!-- 
         FIN JAVASCRIPT
@@ -72,17 +40,6 @@
                 <tr>
                     <td>Area Mejora &nbsp;</td>
                     <td>
-                        <%--<asp:CascadingDropDown ID="cddAreaInformante" runat="server" TargetControlID="cboAreaMejora" LoadingText="Cargando Area..." PromptText="Seleccione Area" 
-                                ServicePath="~/asmx_files/problema_llenado_cbo.asmx" ServiceMethod="getAreaMejoraFiltro" 
-                                Category="amejora_id">
-                        </asp:CascadingDropDown>
-                        <asp:DropDownList ID="cboAreaMejora" runat="server" Width="170px" onchange="cambiaAreaInformante();">
-                        </asp:DropDownList>
-                        <asp:RequiredFieldValidator ID="rfvAreaMejora" runat="server" ErrorMessage="Debe seleccionar area mejora" Display="None" ControlToValidate="cboAreaMejora"></asp:RequiredFieldValidator>
-                        <asp:ValidatorCalloutExtender ID="vceAreaMejora" runat="server" TargetControlID="rfvAreaMejora" HighlightCssClass="validatorCalloutHighlight">
-                        </asp:ValidatorCalloutExtender>--%>
-
-                        <table><tr><td><asp:CheckBox ID="chkTodoArea" runat="server" Text="Todo"/></td></tr></table>
                         <asp:CheckBoxList ID="chkListArea" runat="server" oninit="chkListArea_Init" RepeatColumns="3">
                         </asp:CheckBoxList>                 
                     </td>
@@ -91,16 +48,6 @@
                     <td></td>
                     <td>Estado Mejora &nbsp;</td>
                     <td>
-                        <%--<asp:CascadingDropDown ID="cddInformante" runat="server" TargetControlID="cboEstado" LoadingText="Cargando Estados..." PromptText="Seleccione Estados" 
-                                ServicePath="~/asmx_files/problema_llenado_cbo.asmx" ServiceMethod="getEstadoFiltro" Category="estado_id">
-                        </asp:CascadingDropDown>
-                        <asp:DropDownList ID="cboEstado" runat="server" Width="170px" onchange="cambiaInformante();">
-                        </asp:DropDownList>
-                        <asp:RequiredFieldValidator ID="rfvEstado" runat="server" ErrorMessage="Debe seleccionar une estado" Display="None" ControlToValidate="cboEstado"></asp:RequiredFieldValidator>
-                        <asp:ValidatorCalloutExtender ID="vceEstado" runat="server" TargetControlID="rfvEstado" HighlightCssClass="validatorCalloutHighlight">
-                        </asp:ValidatorCalloutExtender>--%>
-
-                        <table><tr><td><asp:CheckBox ID="chkTodoEstado" runat="server" Text="Todo"/></td></tr></table>
                         <asp:CheckBoxList ID="chkListEstado" runat="server" oninit="chkListEstado_Init" RepeatColumns="2">
                         </asp:CheckBoxList>
                     </td>
@@ -113,9 +60,6 @@
                         <asp:CalendarExtender ID="ceFechaD" TargetControlID="txtFechaD" runat="server"
                                 FirstDayOfWeek="Monday" Format="dd/MM/yyyy">
                         </asp:CalendarExtender>
-                        <%--<asp:RequiredFieldValidator ID="rfvFechaD" runat="server" ErrorMessage="Debe seleccionar una fecha" Display="None" ControlToValidate="txtFechaD"></asp:RequiredFieldValidator>
-                        <asp:ValidatorCalloutExtender ID="vceFechaD" runat="server" TargetControlID="rfvFechaD" HighlightCssClass="validatorCalloutHighlight">
-                        </asp:ValidatorCalloutExtender>--%>
                     </td>
                     <td></td>
                     <td></td>

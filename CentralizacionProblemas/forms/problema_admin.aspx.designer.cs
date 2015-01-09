@@ -40,15 +40,6 @@ namespace CentralizacionProblemas {
         protected global::System.Web.UI.UpdatePanel upMejoraBuscar;
         
         /// <summary>
-        /// Control chkTodoArea.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkTodoArea;
-        
-        /// <summary>
         /// Control chkListArea.
         /// </summary>
         /// <remarks>
@@ -56,15 +47,6 @@ namespace CentralizacionProblemas {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBoxList chkListArea;
-        
-        /// <summary>
-        /// Control chkTodoEstado.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkTodoEstado;
         
         /// <summary>
         /// Control chkListEstado.
