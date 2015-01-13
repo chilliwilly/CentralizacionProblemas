@@ -16,7 +16,7 @@ namespace problema_dal
 
             using (OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.ConnectionStrings["ora_problem_cal"].ConnectionString))
             {
-                con.Open();
+                con.Open();                
                 String qry = "FN_SELECT_LOGIN_DATA";
                 using (OracleCommand cmd = new OracleCommand(qry, con))
                 {

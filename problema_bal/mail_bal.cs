@@ -177,5 +177,41 @@ namespace problema_bal
                 return false;
             }
         }
+
+        public bool envioMailCierre(String usrForMail, String usrCopMail, String num) 
+        {
+            String para = usrForMail + "@dts.cl";
+            String copy = usrCopMail + "@dts.cl";
+            String cuerpo = "Estimado: <br>" +
+                            "Se le ha enviado este mail ya que la mejora numero " + num + " se ha cerreado. <br>" +
+                            "Favor no responder a este mail. <br>" +
+                            "Gracias.";
+
+
+            System.Net.Mail.MailMessage msg = new System.Net.Mail.MailMessage();
+            msg.To.Add(para);
+            msg.CC.Add(copy);
+            msg.From = new MailAddress("adminmantocal@dts.cl", "Admin Manto - Cal", System.Text.Encoding.UTF8);
+            msg.Subject = "Cierre Seguimiento Seguimiento";
+            msg.SubjectEncoding = System.Text.Encoding.UTF8;
+            msg.Body = cuerpo;
+            msg.BodyEncoding = System.Text.Encoding.UTF8;
+            msg.IsBodyHtml = true;
+
+            SmtpClient client = new SmtpClient();
+            client.Port = 25;
+            client.Host = "post2";
+            client.EnableSsl = false;
+
+            try
+            {
+                client.Send(msg);
+                return true;
+            }
+            catch (System.Net.Mail.SmtpException ex) 
+            {
+                return false;
+            }
+        }
     }
 }

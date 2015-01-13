@@ -44,7 +44,7 @@ namespace CentralizacionProblemas
         {
             //objProblemaBal = new problem_bal();
             //String f = txtFecha.Text;
-
+            
             //Problema pr = new Problema();
             //pr.problema_fecha = f;
             //pr.problema_informante = cboInformante.SelectedItem.ToString();

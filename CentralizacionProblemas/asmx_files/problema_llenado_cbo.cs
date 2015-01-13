@@ -17,6 +17,7 @@ using AjaxControlToolkit;
 using System.Security.Principal;
 using Oracle.DataAccess.Client;
 using Oracle.DataAccess.Types;
+using problema_bal;
 
 //namespace CentralizacionProblemas
 //{
@@ -127,6 +128,13 @@ public class problema_llenado_cbo : System.Web.Services.WebService
         problema_bal.problem_bal objProblema = new problema_bal.problem_bal();
 
         return objProblema.getNumeroProblema();
+    }
+
+    [WebMethod]
+    public void setAccion(String nombreacc)
+    {
+        filtro_bal obj = new filtro_bal();
+        obj.setAccionSgto(nombreacc);
     }
 
     private List<CascadingDropDownNameValue> getData(string  qry_in)

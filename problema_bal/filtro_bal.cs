@@ -59,5 +59,27 @@ namespace problema_bal
             }
             return ls;
         }
+
+        public List<Accion> getAccionSgto() 
+        {
+            objFiltro = new filtro_dal();
+            List<Accion> ls = new List<Accion>();
+            DataTable dt = objFiltro.selectAccionSgto();
+
+            foreach (DataRow dr in dt.Rows) 
+            {
+                Accion a = new Accion();
+                a.idnacc = dr["ACC_ID"].ToString();
+                a.nomacc = dr["ACC_NOMBRE"].ToString();
+                ls.Add(a);
+            }
+            return ls;
+        }
+
+        public void setAccionSgto(String nombre) 
+        {
+            objFiltro = new filtro_dal();
+            objFiltro.insertAccionSgto(nombre);
+        }
     }
 }

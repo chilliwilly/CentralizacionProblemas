@@ -39,6 +39,38 @@
                     $("<div id='dialog' title='Largo Texto Segto Mejora'><p>El texto del Seguimiento de la Mejora no puede superar los 500 caracteres.</p></div>").dialog({ modal: true });
                 });
             }
+
+            function muestraModal() {
+                $(document).ready(function () {
+                    $("#dialog-form").dialog({
+                        buttons: {
+                            "Agregar": guardaAccion
+                            ,
+                            Cerrar: function () {
+                                $(this).dialog('close');
+                            }                            
+                        },
+                        modal: true
+                    });
+                });
+            }
+
+            function guardaAccion() {
+                $.ajax({
+                    type: "POST",
+
+                    url: "/asmx_files/problema_llenado_cbo.asmx/setAccion",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ "nombreacc": $("#accion").val() }),
+                    success: function (data, status) {
+                        alert("Guardado");
+                    },
+                    error: function (data) {
+                        alert("Error al Guardar");
+                    }
+                });
+            }
         </script>
 
     <h1>Nuevo Seguimiento</h1>
@@ -219,6 +251,16 @@
     </asp:UpdatePanel>
 
     <br />
+    
+    <div id="dialog-form" title="Ingreso Accion" style="display:none;">
+        <p class="validateTips">Nombre de la acción a ingresar</p>
+        <form>
+            <fieldset>
+                <label for="name">Nombre Accion</label>
+                <input type="text" name="name" id="accion" value="" class="text ui-widget-content ui-corner-all"/>    
+            </fieldset>
+        </form>
+    </div>
 
     <asp:Panel ID="panDatoProblema" runat="server">
         <asp:UpdatePanel ID="updDatoProblema" runat="server" UpdateMode="Conditional">
@@ -239,6 +281,9 @@
                         </td>
                         <td>
                             <asp:TextBox ID="txtAccion" runat="server" placeholder="Acción que se realiza"></asp:TextBox>
+                            <asp:DropDownList ID="cboAccion" runat="server" oninit="cboAccion_Init">
+                            </asp:DropDownList>
+                            <asp:Button ID="Button1" runat="server" Text="Button" onclick="Button1_Click" />
                         </td>
                     </tr>
                     <tr>

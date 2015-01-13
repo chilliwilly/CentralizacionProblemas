@@ -296,5 +296,22 @@ namespace CentralizacionProblemas
                 chkListEstado.Items.Add(item);
             }
         }
+
+        protected void cboAccion_Init(object sender, EventArgs e)
+        {
+            filtro_bal f = new filtro_bal();
+
+            cboAccion.Items.Add(new ListItem("Seleccione", "0"));
+
+            foreach (Accion a in f.getAccionSgto()) 
+            {
+                cboAccion.Items.Add(new ListItem(a.nomacc, a.idnacc));                
+            }
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, GetType(), "", "muestraModal();", true);
+        }
     }
 }
