@@ -312,6 +312,6 @@ namespace CentralizacionProblemas
         protected void Button1_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(this, GetType(), "", "muestraModal();", true);
-        }
+        }        
     }
 }

@@ -65,6 +65,7 @@
                     data: JSON.stringify({ "nombreacc": $("#accion").val() }),
                     success: function (data, status) {
                         alert("Guardado");
+                        __doPostBack('<%=cboAccion.ClientID %>', '');                        
                     },
                     error: function (data) {
                         alert("Error al Guardar");
