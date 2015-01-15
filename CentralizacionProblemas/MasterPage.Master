@@ -5,12 +5,17 @@
 <head id="Head1" runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
-    <link href="css/Site.css" rel="stylesheet" type="text/css" />    
+    <link href="css/Site.css" rel="stylesheet" type="text/css" /> 
+      
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css" />
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
 </head>
-<body>
-    <form id="Form1" runat="server">
+<body>    
+    <form id="Form1" runat="server">    
     <div class="page">
         <div class="header">
             <div class="title">
@@ -48,4 +53,11 @@
     </div>
     </form>
 </body>
+    <script type="text/javascript">
+        function venceCookie() {
+            //$(document).ready(function () {
+            $("<div id='dialog' title='Sesion Expirada'><p>La sesion ha superado el tiempo establecido.</p></div>").dialog({ modal: true });
+            //});
+        }
+    </script>
 </html>

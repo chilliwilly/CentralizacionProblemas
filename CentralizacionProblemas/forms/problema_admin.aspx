@@ -3,33 +3,12 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-    <link type="text/css" rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css" />
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script type="text/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>    
+       
     <%--//code.jquery.com/jquery-2.1.3.min.js //ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js--%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" EnableScriptGlobalization="True" ScriptMode="Release" EnablePartialRendering="true" LoadScriptsBeforeUI="false">
     </asp:ToolkitScriptManager>
-    <!-- 
-        INICIO JAVASCRIPT
-    -->
-            <script type="text/javascript" language="javascript">
-                function validaChkBox() {
-                    $(document).ready(function () {
-                        $("<div id='dialog' title='Faltan Campos'><p>Debe seleccionar almenos un Area de Mejora y un Estado de la Mejora.</p></div>").dialog({ modal: true });
-                    });
-                }
-
-                function validaFechaD() {
-                    $(document).ready(function () {
-                        $("<div id='dialog' title='Fecha Desde'><p>Debe seleccionar fecha creacion mejora.</p></div>").dialog({ modal: true });
-                    });
-                }          
-            </script>
-    <!-- 
-        FIN JAVASCRIPT
-    -->
 
     <h1>Ver Seguimiento</h1>
     <br />    
@@ -295,4 +274,24 @@
             </ContentTemplate>
         </asp:UpdatePanel>
     </asp:Panel>
+
+    <!-- 
+        INICIO JAVASCRIPT
+    -->
+            <script type="text/javascript" language="javascript">
+                function validaChkBox() {
+                    $(document).ready(function () {
+                        $("<div id='dialog' title='Faltan Campos'><p>Debe seleccionar almenos un Area de Mejora y un Estado de la Mejora.</p></div>").dialog({ modal: true });
+                    });
+                }
+
+                function validaFechaD() {
+                    $(document).ready(function () {
+                        $("<div id='dialog' title='Fecha Desde'><p>Debe seleccionar fecha creacion mejora.</p></div>").dialog({ modal: true });
+                    });
+                }          
+            </script>
+    <!-- 
+        FIN JAVASCRIPT
+    -->
 </asp:Content>

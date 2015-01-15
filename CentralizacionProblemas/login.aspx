@@ -5,8 +5,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css" />
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (navigator.userAgent.match(/trident/i)) {
+                $("#form1").hide();
+                $("#dialog-confirm").dialog({
+                    modal: true,
+                    buttons: {
+                        "Ok": cerrarVentana
+                    }
+                });
+            }
+        });
+    </script>
 </head>
-<body>
+<body>    
     <form id="form1" runat="server">
         <table align="center">
             <tr>
@@ -63,5 +79,17 @@
             </tr>
         </table>
     </form>
+    <div id="dialog-confirm" title="Error Compatibilidad" style="display:none;">
+         <p>
+             <span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;"></span>
+             El navegador que esta utilizando no es compatible con algunas de las nuevas funciones incorporadas.
+         </p>
+    </div>
 </body>
+    <script type="text/javascript">
+        function cerrarVentana() {
+            window.open('', '_self', '');
+            window.close();
+        }
+    </script>
 </html>

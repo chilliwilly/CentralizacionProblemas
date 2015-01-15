@@ -6,10 +6,7 @@
     <%--<link rel="Stylesheet" href="../css/jquery-ui.css" />
     <script type="text/javascript" src="../Scripts/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>--%>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script type="text/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-
+    
     <style type="text/css">
         .style1
         {
@@ -29,68 +26,10 @@
         }
     </style>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-        <!-- 
-            INICIO JAVASCRIPT
-        -->
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">        
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" EnableScriptGlobalization="True" ScriptMode="Release" EnablePartialRendering="true" LoadScriptsBeforeUI="false">
     </asp:ToolkitScriptManager>    
-        <script type="text/javascript" language="javascript">
-            function cambiaCliente() {
-                var getidCli = document.getElementById("<%=cboCliente.ClientID %>");
-                var getid = getidCli.value;
-            }
-
-            function cambiaAreaInformante() {
-                var getidA = document.getElementById("<%=cboAreaInformante.ClientID %>");
-                var geta = getidA.value;
-            }
-
-            function cambiaAMejora() {
-                var getidAM = document.getElementById("<%=cboAreaMejora.ClientID %>");
-                var getam = getidAM.value;
-            }
-
-            function cambiaTipoMejora() {
-                var getidTAM = document.getElementById("<%=cboTipoMejora.ClientID %>");
-                var gettam = getidTAM.value;
-            }
-
-            function cambiaInformante() {
-                var getidInf = document.getElementById("<%=cboInformante.ClientID %>");
-                var getInf = getidInf.value;
-            }
-
-            $(document).ready(function () {
-                AjaxFileUpload_change_text();
-            });
-
-            function AjaxFileUpload_change_text() {
-                Sys.Extended.UI.Resources.AjaxFileUpload_SelectFile = "Seleccione";
-                Sys.Extended.UI.Resources.AjaxFileUpload_DropFiles = "Seleccione Archivos";
-                Sys.Extended.UI.Resources.AjaxFileUpload_Pending = "Pendiente";
-                Sys.Extended.UI.Resources.AjaxFileUpload_Remove = "Quitar";
-                Sys.Extended.UI.Resources.AjaxFileUpload_Upload = "Subir";
-                Sys.Extended.UI.Resources.AjaxFileUpload_FileInQueue = "{0} archivo(s) en cola.";
-                Sys.Extended.UI.Resources.AjaxFileUpload_UploadedPercentage = "Completado {0} %";
-                Sys.Extended.UI.Resources.AjaxFileUpload_SelectFileToUpload = "Seleccione archivo(s) para subir.";
-                Sys.Extended.UI.Resources.AjaxFileUpload_AllFilesUploaded = "Se han subido los archivos.";
-                Sys.Extended.UI.Resources.AjaxFileUpload_Cancel = "Cancelar";
-                Sys.Extended.UI.Resources.AjaxFileUpload_Canceled = "Cancelado";
-                Sys.Extended.UI.Resources.AjaxFileUpload_UploadCanceled = "Archivo Cancelado";
-                Sys.Extended.UI.Resources.AjaxFileUpload_UploadingInputFile = "Subiendo Archivo: {0}.";
-                Sys.Extended.UI.Resources.AjaxFileUpload_Uploaded = "Subido";
-            }
-
-            function validaLargoDetMej() {
-                $(document).ready(function () {
-                    $("<div id='dialog' title='Largo Texto Detalle Mejora'><p>El texto del Detalle Mejora no puede superar los 500 caracteres.</p></div>").dialog({ modal: true });
-                });
-            }
-        </script>
-    <!-- 
-        FIN JAVASCRIPT
-    -->
+        
     <h1>Ingreso Mejora</h1>
     <asp:UpdatePanel ID="upProblema" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
@@ -216,4 +155,66 @@
         onclick="btnIngresar_Click" />
         </ContentTemplate>
         </asp:UpdatePanel>
+
+        <!-- 
+            INICIO JAVASCRIPT
+        -->
+
+        <script type="text/javascript" language="javascript">
+            function cambiaCliente() {
+                var getidCli = document.getElementById("<%=cboCliente.ClientID %>");
+                var getid = getidCli.value;
+            }
+
+            function cambiaAreaInformante() {
+                var getidA = document.getElementById("<%=cboAreaInformante.ClientID %>");
+                var geta = getidA.value;
+            }
+
+            function cambiaAMejora() {
+                var getidAM = document.getElementById("<%=cboAreaMejora.ClientID %>");
+                var getam = getidAM.value;
+            }
+
+            function cambiaTipoMejora() {
+                var getidTAM = document.getElementById("<%=cboTipoMejora.ClientID %>");
+                var gettam = getidTAM.value;
+            }
+
+            function cambiaInformante() {
+                var getidInf = document.getElementById("<%=cboInformante.ClientID %>");
+                var getInf = getidInf.value;
+            }
+
+            $(document).ready(function () {
+                AjaxFileUpload_change_text();
+            });
+
+            function AjaxFileUpload_change_text() {
+                Sys.Extended.UI.Resources.AjaxFileUpload_SelectFile = "Seleccione";
+                Sys.Extended.UI.Resources.AjaxFileUpload_DropFiles = "Seleccione Archivos";
+                Sys.Extended.UI.Resources.AjaxFileUpload_Pending = "Pendiente";
+                Sys.Extended.UI.Resources.AjaxFileUpload_Remove = "Quitar";
+                Sys.Extended.UI.Resources.AjaxFileUpload_Upload = "Subir";
+                Sys.Extended.UI.Resources.AjaxFileUpload_FileInQueue = "{0} archivo(s) en cola.";
+                Sys.Extended.UI.Resources.AjaxFileUpload_UploadedPercentage = "Completado {0} %";
+                Sys.Extended.UI.Resources.AjaxFileUpload_SelectFileToUpload = "Seleccione archivo(s) para subir.";
+                Sys.Extended.UI.Resources.AjaxFileUpload_AllFilesUploaded = "Se han subido los archivos.";
+                Sys.Extended.UI.Resources.AjaxFileUpload_Cancel = "Cancelar";
+                Sys.Extended.UI.Resources.AjaxFileUpload_Canceled = "Cancelado";
+                Sys.Extended.UI.Resources.AjaxFileUpload_UploadCanceled = "Archivo Cancelado";
+                Sys.Extended.UI.Resources.AjaxFileUpload_UploadingInputFile = "Subiendo Archivo: {0}.";
+                Sys.Extended.UI.Resources.AjaxFileUpload_Uploaded = "Subido";
+            }
+
+            function validaLargoDetMej() {
+                //$(document).ready(function () {
+                $("<div id='dialog' title='Largo Texto Detalle Mejora'><p>El texto del Detalle Mejora no puede superar los 500 caracteres.</p></div>").dialog({ modal: true });
+                //});
+            }
+        </script>
+    <!-- 
+        FIN JAVASCRIPT
+    -->
+
 </asp:Content>

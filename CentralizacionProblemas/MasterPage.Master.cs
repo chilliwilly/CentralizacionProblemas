@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using problema_bal;
 using problema_class;
+using System.Web.Services;
 
 namespace CentralizacionProblemas
 {
@@ -16,8 +17,9 @@ namespace CentralizacionProblemas
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (Request.Cookies["v_pr"] != null)
-            {                
+            {
                 if (Request.Cookies["v_pr"].Value.Equals("1"))
                 {
                     columna = "MENU_FUNCMAIN";
@@ -34,12 +36,13 @@ namespace CentralizacionProblemas
                     BindMenuControl(columna);
                 }
                 else
-                {
+                {                    
                     Response.Redirect("~/login.aspx");
                 }
             }
-            else 
+            else
             {
+                //ScriptManager.RegisterStartupScript(this, GetType(), "", "venceCookie();", true);
                 Response.Redirect("~/login.aspx");
             }
 
@@ -73,6 +76,6 @@ namespace CentralizacionProblemas
                     AddChildItem(ref miSubItem, idFuncion);
                 }
             }
-        }
+        }        
     }
 }

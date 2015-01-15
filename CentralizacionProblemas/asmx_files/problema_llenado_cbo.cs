@@ -135,7 +135,7 @@ public class problema_llenado_cbo : System.Web.Services.WebService
     {
         filtro_bal obj = new filtro_bal();
         obj.setAccionSgto(nombreacc);
-    }
+    }    
 
     private List<CascadingDropDownNameValue> getData(string  qry_in)
     {        

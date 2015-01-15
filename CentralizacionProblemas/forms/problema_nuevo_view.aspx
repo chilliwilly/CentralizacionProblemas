@@ -27,84 +27,10 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-        <!-- 
-            INICIO JAVASCRIPT
-        -->
+        
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" EnableScriptGlobalization="True" ScriptMode="Release" EnablePartialRendering="true" LoadScriptsBeforeUI="false">
     </asp:ToolkitScriptManager>    
-        <script type="text/javascript" language="javascript">
-            
-            function cambiaAreaInformante() {
-                var getidA = document.getElementById("<%=cboAreaMejora.ClientID %>");
-                var geta = getidA.value;
-            }
-
-            function cambiaInformante() {
-                var getidInf = document.getElementById("<%=cboEstado.ClientID %>");
-                var getInf = getidInf.value;
-            }
-
-            Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
-            function EndRequestHandler(sender, args) {
-                if (args.get_error() == undefined) {
-                    reloadNumeroMejora();
-                }
-            }
-
-            function reloadNumeroMejora() {
-                $(document).ready(function () {
-                    $.ajax({
-                        type: "POST",
-
-                        url: "/asmx_files/problema_llenado_cbo.asmx/getNumeroMejora",
-                        dataType: "json",
-                        data: "{}",
-                        contentType: "application/json; charset=utf-8",
-                        options: { items: Infinity },
-
-                        success: function (data) {
-
-                            var dataFromServer = data.d.split(":");
-                            $("#txtNumero").autocomplete({
-                                source: dataFromServer
-                            });
-                        },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            alert(textStatus);
-                        }
-                    });
-                })
-            }
-            reloadNumeroMejora();
-
-//            function busquedaNroTexto() {
-//                var txtNum = $('#txtNumero').val(); // document.getElementById("txtNumero").value;
-//                var txtArea = document.getElementById("<%=cboAreaMejora.ClientID %>").value;
-//                var txtEstado = document.getElementById("<%=cboEstado.ClientID %>").value;
-//                var txtFD = document.getElementById("<%=txtFechaD.ClientID %>").value;
-//                var txtFH = document.getElementById("<%=txtFechaH.ClientID %>").value;
-//                var txtMsg = "";
-//                var valida = true;
-
-//                if ((txtNum == null || txtNum == "") && (txtArea == null || txtArea == "" || txtEstado == null || txtEstado == "" || txtFD == null || txtFD == "" || txtFH == null || txtFH == "")) {
-//                    txtMsg += "Debe seleccionar opcion de busuqeda: Buscar por Numero o Por los 4 Filtros empezando por Area Mejora\n";
-//                    valida = false;
-//                }
-//                else if ((txtNum != null || txtNum != "") && (txtArea != null || txtArea != "" || txtEstado != null || txtEstado != "" || txtFD != null || txtFD != "" || txtFH != null || txtFH != "")) {
-//                    txtMsg += "Puede buscar por numero de Mejora o por Estados/Fechas pero no por ambos\n";
-//                    valida = false;
-//                }
-//                else if ((txtNum == null || txtNum == "") && (txtArea == null || txtArea == "" && txtEstado == null || txtEstado == "" && txtFD == null || txtFD == "" && txtFH == null || txtFH == "")) {
-//                    txtMsg += "Mensaje\n";
-//                    valida = false;
-//                }
-//                alert(txtMsg);
-//                return valida;
-//            }
-        </script>
-    <!-- 
-        FIN JAVASCRIPT
-    -->
+        
     <h1>Busqueda Mejora</h1>
     <asp:Panel ID="panMejoraBuscar" runat="server">
     <asp:UpdatePanel ID="upMejoraBuscar" runat="server" UpdateMode="Conditional">
@@ -418,4 +344,82 @@
         </ContentTemplate>
     </asp:UpdatePanel>
     </asp:Panel>
+
+    <!-- 
+        INICIO JAVASCRIPT
+    -->
+    <script type="text/javascript" language="javascript">
+
+        function cambiaAreaInformante() {
+            var getidA = document.getElementById("<%=cboAreaMejora.ClientID %>");
+            var geta = getidA.value;
+        }
+
+        function cambiaInformante() {
+            var getidInf = document.getElementById("<%=cboEstado.ClientID %>");
+            var getInf = getidInf.value;
+        }
+
+        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
+        function EndRequestHandler(sender, args) {
+            if (args.get_error() == undefined) {
+                reloadNumeroMejora();
+            }
+        }
+
+        function reloadNumeroMejora() {
+            $(document).ready(function () {
+                $.ajax({
+                    type: "POST",
+
+                    url: "/asmx_files/problema_llenado_cbo.asmx/getNumeroMejora",
+                    dataType: "json",
+                    data: "{}",
+                    contentType: "application/json; charset=utf-8",
+                    options: { items: Infinity },
+
+                    success: function (data) {
+
+                        var dataFromServer = data.d.split(":");
+                        $("#txtNumero").autocomplete({
+                            source: dataFromServer
+                        });
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+            })
+        }
+        reloadNumeroMejora();
+
+        //            function busquedaNroTexto() {
+        //                var txtNum = $('#txtNumero').val(); // document.getElementById("txtNumero").value;
+        //                var txtArea = document.getElementById("<%=cboAreaMejora.ClientID %>").value;
+        //                var txtEstado = document.getElementById("<%=cboEstado.ClientID %>").value;
+        //                var txtFD = document.getElementById("<%=txtFechaD.ClientID %>").value;
+        //                var txtFH = document.getElementById("<%=txtFechaH.ClientID %>").value;
+        //                var txtMsg = "";
+        //                var valida = true;
+
+        //                if ((txtNum == null || txtNum == "") && (txtArea == null || txtArea == "" || txtEstado == null || txtEstado == "" || txtFD == null || txtFD == "" || txtFH == null || txtFH == "")) {
+        //                    txtMsg += "Debe seleccionar opcion de busuqeda: Buscar por Numero o Por los 4 Filtros empezando por Area Mejora\n";
+        //                    valida = false;
+        //                }
+        //                else if ((txtNum != null || txtNum != "") && (txtArea != null || txtArea != "" || txtEstado != null || txtEstado != "" || txtFD != null || txtFD != "" || txtFH != null || txtFH != "")) {
+        //                    txtMsg += "Puede buscar por numero de Mejora o por Estados/Fechas pero no por ambos\n";
+        //                    valida = false;
+        //                }
+        //                else if ((txtNum == null || txtNum == "") && (txtArea == null || txtArea == "" && txtEstado == null || txtEstado == "" && txtFD == null || txtFD == "" && txtFH == null || txtFH == "")) {
+        //                    txtMsg += "Mensaje\n";
+        //                    valida = false;
+        //                }
+        //                alert(txtMsg);
+        //                return valida;
+        //            }
+        </script>
+    <!-- 
+        FIN JAVASCRIPT
+    -->
+
 </asp:Content>

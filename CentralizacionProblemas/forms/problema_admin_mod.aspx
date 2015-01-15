@@ -3,54 +3,25 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css" />
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script type="text/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" EnableScriptGlobalization="True" ScriptMode="Release" EnablePartialRendering="true" LoadScriptsBeforeUI="false">
     </asp:ToolkitScriptManager>
         <script type="text/javascript">
-            function cambiaCliente() {
-                var getidEto = document.getElementById("<%=cboEstado.ClientID %>");
-                var getEto = getidEto.value;
-            }            
-
-            function validaChkBox() {
-                $(document).ready(function () {
-                    $("<div id='dialog' title='Faltan Campos'><p>Debe seleccionar almenos un Area de Mejora y un Estado de la Mejora.</p></div>").dialog({ modal: true });
-                });
-            }
-
-            function validaFechaD() {
-                $(document).ready(function () {
-                    $("<div id='dialog' title='Fecha Desde'><p>Debe seleccionar fecha creacion mejora.</p></div>").dialog({ modal: true });
-                });
-            }
-
-            function validaInMejora(msg) {
-                $(document).ready(function () {
-                    $("<div id='dialog' title='Ingreso Seguimiento'><p>" + msg + ".</p></div>").dialog({ modal: true });
-                });
-            }
-
-            function validaObsMejora() {
-                $(document).ready(function () {
-                    $("<div id='dialog' title='Largo Texto Segto Mejora'><p>El texto del Seguimiento de la Mejora no puede superar los 500 caracteres.</p></div>").dialog({ modal: true });
-                });
-            }
-
             function muestraModal() {
                 $(document).ready(function () {
-                    $("#dialog-form").dialog({
-                        buttons: {
-                            "Agregar": guardaAccion
+                    $("#btnAgregaAcc").click(function () {
+                        $("#dialog-form").dialog({
+                            buttons: {
+                                "Agregar": guardaAccion
                             ,
-                            Cerrar: function () {
-                                $(this).dialog('close');
-                            }                            
-                        },
-                        modal: true
+                                Cerrar: function () {
+                                    $(this).dialog('close');
+                                }
+                            },
+                            modal: true
+                        });
                     });
                 });
             }
@@ -65,7 +36,7 @@
                     data: JSON.stringify({ "nombreacc": $("#accion").val() }),
                     success: function (data, status) {
                         alert("Guardado");
-                        __doPostBack('<%=cboAccion.ClientID %>', '');                        
+                        __doPostBack('<%=cboAccion.ClientID %>', '');
                     },
                     error: function (data) {
                         alert("Error al Guardar");
@@ -266,6 +237,9 @@
     <asp:Panel ID="panDatoProblema" runat="server">
         <asp:UpdatePanel ID="updDatoProblema" runat="server" UpdateMode="Conditional">
             <ContentTemplate>
+                <script type="text/javascript">
+                    Sys.Application.add_load(muestraModal);
+     		    </script>
                 <table>
                     <tr>
                         <td>
@@ -284,7 +258,8 @@
                             <asp:TextBox ID="txtAccion" runat="server" placeholder="Acción que se realiza"></asp:TextBox>
                             <asp:DropDownList ID="cboAccion" runat="server" oninit="cboAccion_Init">
                             </asp:DropDownList>
-                            <asp:Button ID="Button1" runat="server" Text="Button" onclick="Button1_Click" />
+                            <%--<asp:Button ID="Button1" runat="server" Text="Button" onclick="Button1_Click" />--%>
+                            <input type="button" name="btnAgregaAcc" id="btnAgregaAcc" value="Agregar Accion" />
                         </td>
                     </tr>
                     <tr>
@@ -447,4 +422,35 @@
             </ContentTemplate>
         </asp:UpdatePanel>
     </asp:Panel>
+
+    <script type="text/javascript">
+        function cambiaCliente() {
+            var getidEto = document.getElementById("<%=cboEstado.ClientID %>");
+            var getEto = getidEto.value;
+        }
+
+        function validaChkBox() {
+            //$(document).ready(function () {
+                $("<div id='dialog' title='Faltan Campos'><p>Debe seleccionar almenos un Area de Mejora y un Estado de la Mejora.</p></div>").dialog({ modal: true });
+            //});
+        }
+
+        function validaFechaD() {
+            //$(document).ready(function () {
+                $("<div id='dialog' title='Fecha Desde'><p>Debe seleccionar fecha creacion mejora.</p></div>").dialog({ modal: true });
+            //});
+        }
+
+        function validaInMejora(msg) {
+            //$(document).ready(function () {
+                $("<div id='dialog' title='Ingreso Seguimiento'><p>" + msg + ".</p></div>").dialog({ modal: true });
+            //});
+        }
+
+        function validaObsMejora() {
+            //$(document).ready(function () {
+                $("<div id='dialog' title='Largo Texto Segto Mejora'><p>El texto del Seguimiento de la Mejora no puede superar los 500 caracteres.</p></div>").dialog({ modal: true });
+            //});
+        }
+    </script>
 </asp:Content>

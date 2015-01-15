@@ -3,43 +3,12 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css" />
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script type="text/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" EnableScriptGlobalization="True" ScriptMode="Release" EnablePartialRendering="true" LoadScriptsBeforeUI="false">
     </asp:ToolkitScriptManager>
-        <script type="text/javascript">
-            function cambiaCliente() {
-                var getidEto = document.getElementById("<%=cboEstado.ClientID %>");
-                var getEto = getidEto.value;
-            }
-
-            function validaChkBox() {
-                $(document).ready(function () {
-                    $("<div id='dialog' title='Faltan Campos'><p>Debe seleccionar almenos un Area de Mejora y un Estado de la Mejora.</p></div>").dialog({ modal: true });
-                });
-            }
-
-            function validaFechaD() {
-                $(document).ready(function () {
-                    $("<div id='dialog' title='Fecha Desde'><p>Debe seleccionar fecha creacion mejora.</p></div>").dialog({ modal: true });
-                });
-            }
-
-            function validaInMejora(msg) {
-                $(document).ready(function () {
-                    $("<div id='dialog' title='Ingreso Seguimiento'><p>" + msg + ".</p></div>").dialog({ modal: true });
-                });
-            }
-
-            function validaObsMejora() {
-                $(document).ready(function () {
-                    $("<div id='dialog' title='Largo Texto Segto Mejora'><p>El texto del Seguimiento de la Mejora no puede superar los 500 caracteres.</p></div>").dialog({ modal: true });
-                });
-            }
-        </script>
+        
 
     <h1>Cierre Seguimiento</h1>
     <br />
@@ -423,4 +392,27 @@
             </ContentTemplate>
         </asp:UpdatePanel>
     </asp:Panel>
+
+    <script type="text/javascript">
+        function cambiaCliente() {
+            var getidEto = document.getElementById("<%=cboEstado.ClientID %>");
+            var getEto = getidEto.value;
+        }
+
+        function validaChkBox() {
+            $("<div id='dialog' title='Faltan Campos'><p>Debe seleccionar almenos un Area de Mejora y un Estado de la Mejora.</p></div>").dialog({ modal: true });            
+        }
+
+        function validaFechaD() {
+            $("<div id='dialog' title='Fecha Desde'><p>Debe seleccionar fecha creacion mejora.</p></div>").dialog({ modal: true });            
+        }
+
+        function validaInMejora(msg) {
+            $("<div id='dialog' title='Ingreso Seguimiento'><p>" + msg + ".</p></div>").dialog({ modal: true });            
+        }
+
+        function validaObsMejora() {
+            $("<div id='dialog' title='Largo Texto Segto Mejora'><p>El texto del Seguimiento de la Mejora no puede superar los 500 caracteres.</p></div>").dialog({ modal: true });
+        }
+        </script>
 </asp:Content>
