@@ -131,11 +131,11 @@ public class problema_llenado_cbo : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void setAccion(String nombreacc)
+    public Boolean setAccion(String nombreacc)
     {
         filtro_bal obj = new filtro_bal();
-        obj.setAccionSgto(nombreacc);
-    }    
+        return obj.setAccionSgto(nombreacc);
+    }
 
     private List<CascadingDropDownNameValue> getData(string  qry_in)
     {        

@@ -14,10 +14,10 @@ namespace CentralizacionProblemas
     {
         String columna = "";
         menu_bal objMenu;
+        String v_u, v_p, v_pr, v_n;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
             if (Request.Cookies["v_pr"] != null)
             {
                 if (Request.Cookies["v_pr"].Value.Equals("1"))
@@ -36,7 +36,7 @@ namespace CentralizacionProblemas
                     BindMenuControl(columna);
                 }
                 else
-                {                    
+                {
                     Response.Redirect("~/login.aspx");
                 }
             }
@@ -77,5 +77,5 @@ namespace CentralizacionProblemas
                 }
             }
         }        
-    }
+    }    
 }

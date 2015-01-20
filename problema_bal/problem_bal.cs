@@ -323,5 +323,19 @@ namespace problema_bal
 
             return dato;
         }
+
+        public Boolean validaIngresoSeguimiento(String usrlogin, String idmejora) 
+        {
+            Boolean valida = false;
+
+
+            if (usrlogin.Equals("Creacion") || usrlogin.Equals("sclavijo") || usrlogin.Equals("wcontreras") || usrlogin.Equals("ultimo usr ls sgto"))
+            {
+                valida = true;
+            }
+
+
+            return valida;
+        }
     }
 }

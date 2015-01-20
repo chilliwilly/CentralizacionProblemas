@@ -211,6 +211,33 @@ namespace CentralizacionProblemas {
         protected global::System.Web.UI.WebControls.Label lblTituloSgto;
         
         /// <summary>
+        /// Control upListaAccion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upListaAccion;
+        
+        /// <summary>
+        /// Control gvListaAccion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvListaAccion;
+        
+        /// <summary>
+        /// Control btnUpdateLista.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUpdateLista;
+        
+        /// <summary>
         /// Control panDatoProblema.
         /// </summary>
         /// <remarks>

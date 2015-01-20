@@ -212,6 +212,16 @@
                 $("<div id='dialog' title='Largo Texto Detalle Mejora'><p>El texto del Detalle Mejora no puede superar los 500 caracteres.</p></div>").dialog({ modal: true });
                 //});
             }
+
+            $("form").submit(function (event) {
+                var a = 1;
+                if (a == 1) {
+                    alert("No se gatilla");
+                    return false;
+                }
+                alert("se gatilla");
+                return;
+            });
         </script>
     <!-- 
         FIN JAVASCRIPT

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css" />
     <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.cookie.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             if (navigator.userAgent.match(/trident/i)) {

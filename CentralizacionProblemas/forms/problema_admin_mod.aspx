@@ -10,7 +10,7 @@
     </asp:ToolkitScriptManager>
         <script type="text/javascript">
             function muestraModal() {
-                $(document).ready(function () {
+                //$(document).ready(function () {
                     $("#btnAgregaAcc").click(function () {
                         $("#dialog-form").dialog({
                             buttons: {
@@ -23,8 +23,22 @@
                             modal: true
                         });
                     });
-                });
-            }
+                //});
+                }
+
+                function muestraAccion() {
+                    $("#btnAddAcc").click(function () {
+                        $("#dialog-accion").dialog({
+                            modal: true,
+                            width: "300px",
+                            buttons: {
+                                Cerrar: function () {
+                                    $(this).dialog('close');
+                                }
+                            }
+                        });
+                    });
+                }
 
             function guardaAccion() {
                 $.ajax({
@@ -35,8 +49,13 @@
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({ "nombreacc": $("#accion").val() }),
                     success: function (data, status) {
-                        alert("Guardado");
-                        __doPostBack('<%=cboAccion.ClientID %>', '');
+                        if (data.d) {
+                            __doPostBack('<%=cboAccion.ClientID %>', '');
+                            alert("Guardado");
+                        }
+                        else {
+                            alert("La accion ingresada ya existe");
+                        }
                     },
                     error: function (data) {
                         alert("Error al Guardar");
@@ -234,11 +253,57 @@
         </form>
     </div>
 
+    <div id="dialog-accion" title="Ingreso Accion" style="display:none;">
+        <asp:UpdatePanel ID="upListaAccion" runat="server" UpdateMode="Conditional">
+            <ContentTemplate>
+                <form>
+                <fieldset>
+                    <label for="name">Nombre Accion</label>
+                    <input type="text" name="nomAcc" id="nomAcc" value="" class="text ui-widget-content ui-corner-all" />
+                    <br /><br />
+                    <input type="button" value="Agregar" name="Agregar" id="btnAccAdd" />
+                </fieldset>
+                </form>
+                <asp:GridView HorizontalAlign="Center" ID="gvListaAccion" runat="server" AutoGenerateColumns="false" 
+                    AllowPaging="true" PageSize="5" PagerSettings-PageButtonCount="5" PagerSettings-Mode="NumericFirstLast" 
+                            PagerSettings-FirstPageText="Primera" 
+                    PagerSettings-LastPageText="Ultima" oninit="gvListaAccion_Init">
+                    <Columns>
+                        <asp:TemplateField HeaderText="IdAccion" ItemStyle-HorizontalAlign="Center" Visible="false">
+                            <ItemTemplate>
+                                <asp:Label ID="lblIdAccion" runat="server" Text='<%# Bind("IDNACC") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Accion" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="150px">
+                            <ItemTemplate>
+                                <asp:Label ID="lblAccion" runat="server" Text='<%# Bind("NOMACC") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="50px">
+                            <ItemTemplate>
+                                <a href="#" id="btn-delete" class="ui-icon ui-icon-closethick"></a>
+                                <a href="#" id="btn-update" class="ui-icon ui-icon-transferthick-e-w"></a>
+                                <%--<span class="ui-icon ui-icon-closethick"></span>                                
+                                    &nbsp;
+                                <span class="ui-icon ui-icon-transferthick-e-w"></span>--%>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                </asp:GridView>
+                <asp:Button runat="server" ID="btnUpdateLista" Visible="false" 
+                    onclick="btnUpdateLista_Click" />
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </div>
+
     <asp:Panel ID="panDatoProblema" runat="server">
         <asp:UpdatePanel ID="updDatoProblema" runat="server" UpdateMode="Conditional">
             <ContentTemplate>
                 <script type="text/javascript">
                     Sys.Application.add_load(muestraModal);
+                    Sys.Application.add_load(muestraAccion);
      		    </script>
                 <table>
                     <tr>
@@ -260,6 +325,7 @@
                             </asp:DropDownList>
                             <%--<asp:Button ID="Button1" runat="server" Text="Button" onclick="Button1_Click" />--%>
                             <input type="button" name="btnAgregaAcc" id="btnAgregaAcc" value="Agregar Accion" />
+                            <input type="button" name="btnAddAcc" id="btnAddAcc" value="Add Acc" />
                         </td>
                     </tr>
                     <tr>
@@ -421,7 +487,7 @@
                 </asp:GridView>
             </ContentTemplate>
         </asp:UpdatePanel>
-    </asp:Panel>
+    </asp:Panel>   
 
     <script type="text/javascript">
         function cambiaCliente() {
@@ -451,6 +517,31 @@
             //$(document).ready(function () {
                 $("<div id='dialog' title='Largo Texto Segto Mejora'><p>El texto del Seguimiento de la Mejora no puede superar los 500 caracteres.</p></div>").dialog({ modal: true });
             //});
-        }
+            }
+
+            $("#btnAccAdd").on('click', function () {
+                $.ajax({
+                    type: "POST",
+
+                    url: "/asmx_files/problema_llenado_cbo.asmx/setAccion",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ "nombreacc": $("#nomAcc").val() }),
+                    success: function (data, status) {
+                        if (data.d) {
+                            __doPostBack('<%=cboAccion.ClientID %>', '');
+                            alert("Guardado");
+                            $("#dialog-accion").dialog("close");
+                        }
+                        else {
+                            alert("La accion ingresada ya existe");
+                            __doPostBack('<%=cboAccion.ClientID %>', '');
+                        }
+                    },
+                    error: function (data) {
+                        alert("Error al Guardar");
+                    }
+                });
+            });
     </script>
 </asp:Content>

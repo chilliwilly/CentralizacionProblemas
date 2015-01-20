@@ -26,9 +26,8 @@ namespace CentralizacionProblemas
         {
             String u = txtUser.Text;
             String p = txtPwd.Text;
-            String v_u, v_p, v_pr, v_n, usra, usrinf;
+            String v_u, v_p, v_pr, v_n, usra, usrinf, dtExpire;
             Boolean vU, vP;
-            DateTime dtExpire;
             objLogin = new login_bal();
 
             vU = objLogin.validaUsuario(u);            
@@ -50,7 +49,7 @@ namespace CentralizacionProblemas
                     v_u = objUser.user_nick;
                     v_pr = objUser.user_perfil;
                     v_n = objUser.user_nombre;
-                    dtExpire = DateTime.Now.AddMinutes(5);
+                    dtExpire = DateTime.Now.AddMinutes(240).ToShortTimeString();
 
                     HttpCookie cookie_user = new HttpCookie("v_u");
                     HttpCookie cookie_perfil = new HttpCookie("v_pr");
@@ -60,12 +59,12 @@ namespace CentralizacionProblemas
                     cookie_user.Value = v_u;
                     cookie_perfil.Value = v_pr;
                     cookie_nombre.Value = v_n;
-                    cookie_expira.Value = dtExpire.ToString();
+                    cookie_expira.Value = dtExpire;
 
-                    cookie_user.Expires = DateTime.Now.AddMinutes(5);
-                    cookie_perfil.Expires = DateTime.Now.AddMinutes(5);
-                    cookie_nombre.Expires = DateTime.Now.AddMinutes(5);
-                    cookie_expira.Expires = DateTime.Now.AddMinutes(5);
+                    cookie_user.Expires = DateTime.Now.AddMinutes(240);
+                    cookie_perfil.Expires = DateTime.Now.AddMinutes(240);
+                    cookie_nombre.Expires = DateTime.Now.AddMinutes(240);
+                    cookie_expira.Expires = DateTime.Now.AddMinutes(240);
 
                     Response.Cookies.Add(cookie_user);
                     Response.Cookies.Add(cookie_perfil);

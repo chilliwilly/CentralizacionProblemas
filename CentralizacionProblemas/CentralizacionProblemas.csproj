@@ -98,6 +98,7 @@
     <Content Include="forms\pwd_recordar.aspx" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

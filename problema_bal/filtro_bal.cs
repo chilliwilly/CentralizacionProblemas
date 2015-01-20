@@ -76,10 +76,27 @@ namespace problema_bal
             return ls;
         }
 
-        public void setAccionSgto(String nombre) 
+        public Boolean setAccionSgto(String nombre) 
         {
             objFiltro = new filtro_dal();
-            objFiltro.insertAccionSgto(nombre);
+            Boolean valida = true;
+            DataTable dt = objFiltro.selectAccionSgto();
+
+            foreach (DataRow dr in dt.Rows) 
+            {
+                if (dr["ACC_NOMBRE"].ToString().ToLower().Equals(nombre.ToLower())) 
+                {
+                    valida = false;                    
+                    break;
+                }
+            }
+
+            if (valida) 
+            {
+                objFiltro.insertAccionSgto(nombre);
+            }
+
+            return valida;
         }
     }
 }

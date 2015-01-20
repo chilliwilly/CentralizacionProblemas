@@ -10,11 +10,12 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css" />
     <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.cookie.js"></script>    
 
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
 </head>
-<body>    
+<body>
     <form id="Form1" runat="server">    
     <div class="page">
         <div class="header">
@@ -31,14 +32,7 @@
             </div>
             <div class="clear hideSkiplink">
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
-                    <%--<Items>
-                        <asp:MenuItem NavigateUrl="~/index.aspx" Text="Inicio" Value="Inicio">
-                        </asp:MenuItem>
-                        <asp:MenuItem Text="Nuevo Problema" 
-                            Value="Nuevo Problema" NavigateUrl="~/forms/problema_nuevo.aspx">
-                        </asp:MenuItem>
-                        <asp:MenuItem Text="Lista Problemas" Value="Lista Problemas"></asp:MenuItem>
-                    </Items>--%>
+                    
                 </asp:Menu>
             </div>
         </div>
@@ -51,13 +45,6 @@
     <div class="footer">
         
     </div>
-    </form>
-</body>
-    <script type="text/javascript">
-        function venceCookie() {
-            //$(document).ready(function () {
-            $("<div id='dialog' title='Sesion Expirada'><p>La sesion ha superado el tiempo establecido.</p></div>").dialog({ modal: true });
-            //});
-        }
-    </script>
+    </form>    
+</body>    
 </html>

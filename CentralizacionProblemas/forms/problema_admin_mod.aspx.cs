@@ -312,6 +312,32 @@ namespace CentralizacionProblemas
         protected void Button1_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(this, GetType(), "", "muestraModal();", true);
-        }        
+        }
+
+        protected void gvListaAccion_Init(object sender, EventArgs e)
+        {
+            setListaAccion();
+        }
+
+        public void setListaAccion() 
+        {
+            filtro_bal f = new filtro_bal();
+            gvListaAccion.DataSource = null;
+            gvListaAccion.DataSource = f.getAccionSgto().OrderByDescending(it => Convert.ToInt32(it.idnacc)).ToList();
+            gvListaAccion.DataBind();
+        }
+
+        protected void btnUpdateLista_Click(object sender, EventArgs e)
+        {
+            setListaAccion();
+            upListaAccion.Update();
+        }
+
+        [System.Web.Services.WebMethod]
+        public void refreshListaAccion() 
+        {
+            setListaAccion();
+            upListaAccion.Update();
+        }
     }
 }
