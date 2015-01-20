@@ -327,14 +327,36 @@ namespace problema_bal
         public Boolean validaIngresoSeguimiento(String usrlogin, String idmejora) 
         {
             Boolean valida = false;
+            int mejora = Convert.ToInt32(idmejora);
+            login_bal objLogin_bal = new login_bal();
+
+            //obtengo la data de los seguimientos de acuerdo al id mejora seleccionado
+            List<DetalleSeguimiento> detsgto = getSeguimiento(idmejora);
+
+            //ordeno de mayor a menor y obtengo el primer id del seguimiento
+            var maxfsgto = detsgto.OrderByDescending(it => it.seguimiento_id).Take(1);
+
+            //selecciono el responsable del seguimiento de acuerdo a la seleccion anterior
+            var maxnomsgto = (from usr in maxfsgto
+                              select new
+                                  {
+                                      usr.seguimiento_responsable
+                                  }).ToList();
 
 
-            if (usrlogin.Equals("Creacion") || usrlogin.Equals("sclavijo") || usrlogin.Equals("wcontreras") || usrlogin.Equals("ultimo usr ls sgto"))
+            String n = "";
+            foreach (var v in maxnomsgto) 
+            {
+                n = v.seguimiento_responsable;
+            }
+
+            //obtengo el nombre del usr logeado
+            String nomfull = objLogin_bal.getUserLogin(usrlogin).user_nombre;
+
+            if (n.Equals("Creacion") || usrlogin.Equals("sclavijo") || usrlogin.Equals("wcontreras") || nomfull.Equals(n))
             {
                 valida = true;
             }
-
-
             return valida;
         }
     }

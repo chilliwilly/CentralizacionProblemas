@@ -55,13 +55,25 @@ namespace CentralizacionProblemas
 
                 cleanSeguimientoProblema();
                 getSeguimientoProblema(((Label)gvListaProblema.Rows[fIndex].FindControl("PROBLEMA_ID")).Text);
-                
+
+                String usr = Request.Cookies["v_u"].Value;
+                Boolean valido = objProblemaBal.validaIngresoSeguimiento(usr, ((Label)gvListaProblema.Rows[fIndex].FindControl("PROBLEMA_ID")).Text);
+
+                if (!valido)
+                {
+                    btnAgregar.Enabled = false;
+                }
+                else
+                {
+                    btnAgregar.Enabled = true;
+                }
+
                 updTituloMejora.Update();
                 updMejora.Update();
                 updTituloSgto.Update();
                 updDatoProblema.Update();
                 updTituloTodoSgto.Update();
-                updTodoSegto.Update();
+                updTodoSegto.Update();                
             }
         }
 
