@@ -321,11 +321,6 @@ namespace CentralizacionProblemas
             }
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            ScriptManager.RegisterStartupScript(this, GetType(), "", "muestraModal();", true);
-        }
-
         protected void gvListaAccion_Init(object sender, EventArgs e)
         {
             setListaAccion();
@@ -347,6 +342,12 @@ namespace CentralizacionProblemas
 
         [System.Web.Services.WebMethod]
         public void refreshListaAccion() 
+        {
+            setListaAccion();
+            upListaAccion.Update();
+        }
+
+        protected void upListaAccion_Load(object sender, EventArgs e)
         {
             setListaAccion();
             upListaAccion.Update();

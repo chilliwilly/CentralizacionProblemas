@@ -86,7 +86,7 @@ namespace problema_dal
             using (OracleConnection con = new OracleConnection(conStr)) 
             {
                 con.Open();
-                String qry = "SELECT ACC_ID, ACC_NOMBRE FROM TBLACCION ORDER BY ACC_ID";
+                String qry = "SELECT ACC_ID, ACC_NOMBRE FROM TBLACCION WHERE ACC_ESTADO = 1 ORDER BY ACC_ID";
                 using (OracleCommand cmd = new OracleCommand(qry, con)) 
                 {
                     cmd.CommandType = CommandType.Text;

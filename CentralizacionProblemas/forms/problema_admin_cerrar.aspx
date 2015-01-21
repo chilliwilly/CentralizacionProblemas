@@ -8,7 +8,62 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" EnableScriptGlobalization="True" ScriptMode="Release" EnablePartialRendering="true" LoadScriptsBeforeUI="false">
     </asp:ToolkitScriptManager>
-        
+        <script type="text/javascript">
+            function muestraModal() {                
+                $("#accion").val("");
+                $("#btnAgregaAcc").click(function () {
+                    $("#dialog-form").dialog({
+                        buttons: {
+                            "Agregar": guardaAccion
+                            ,
+                            Cerrar: function () {
+                                $(this).dialog('close');
+                            }
+                        },
+                        modal: true
+                    });
+                });
+            }
+
+            function muestraAccion() {
+                $("#btnEditaAcc").click(function () {
+                    __doPostBack('<%=upListaAccion.ClientID %>', '');
+                    $("#dialog-accion").dialog({
+                        modal: true,
+                        width: "300px",
+                        buttons: {
+                            Cerrar: function () {
+                                $(this).dialog('close');
+                            }
+                        }
+                    });
+                });
+            }
+
+            function guardaAccion() {
+                $.ajax({
+                    type: "POST",
+
+                    url: "/asmx_files/problema_llenado_cbo.asmx/setAccion",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ "nombreacc": $("#accion").val() }),
+                    success: function (data, status) {
+                        if (data.d) {
+                            __doPostBack('<%=cboAccion.ClientID %>', '');
+                            alert("Guardado");
+                            $("#dialog-form").dialog('close');
+                        }
+                        else {
+                            alert("La accion ingresada ya existe");
+                        }
+                    },
+                    error: function (data) {
+                        alert("Error al Guardar");
+                    }
+                });
+            }
+        </script>
 
     <h1>Cierre Seguimiento</h1>
     <br />
@@ -209,15 +264,73 @@
         </ContentTemplate>
     </asp:UpdatePanel>
 
-    <br />
+    <div id="dialog-form" title="Ingreso Accion" style="display:none;">
+        <p class="validateTips">Nombre de la acción a ingresar</p>
+        <form>
+            <fieldset>
+                <label for="name">Nombre Accion</label>
+                <input type="text" name="name" id="accion" value="" class="text ui-widget-content ui-corner-all"/>    
+            </fieldset>
+        </form>
+    </div>
+
+    <div id="dialog-accion" title="Ingreso Accion" style="display:none;">
+        <asp:UpdatePanel ID="upListaAccion" runat="server" UpdateMode="Conditional" 
+            onload="upListaAccion_Load">
+            <ContentTemplate>
+                <form>
+                <fieldset>
+                    <label for="name">Nombre Accion</label>
+                    <input type="text" name="nomAcc" id="nomAcc" value="" class="text ui-widget-content ui-corner-all" />
+                    <br /><br />
+                    <input type="button" value="Agregar" name="Agregar" id="btnAccAdd" />
+                </fieldset>
+                </form>
+                <asp:GridView HorizontalAlign="Center" ID="gvListaAccion" runat="server" AutoGenerateColumns="false" 
+                    AllowPaging="true" PageSize="5" PagerSettings-PageButtonCount="5" PagerSettings-Mode="NumericFirstLast" 
+                            PagerSettings-FirstPageText="Primera" 
+                    PagerSettings-LastPageText="Ultima" oninit="gvListaAccion_Init">
+                    <Columns>
+                        <asp:TemplateField HeaderText="IdAccion" ItemStyle-HorizontalAlign="Center" Visible="false">
+                            <ItemTemplate>
+                                <asp:Label ID="lblIdAccion" runat="server" Text='<%# Bind("IDNACC") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Accion" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="150px">
+                            <ItemTemplate>
+                                <asp:Label ID="lblAccion" runat="server" Text='<%# Bind("NOMACC") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="50px">
+                            <ItemTemplate>
+                                <a href="#" id="btn-delete" class="ui-icon ui-icon-closethick"></a>
+                                <a href="#" id="btn-update" class="ui-icon ui-icon-transferthick-e-w"></a>
+                                <%--<span class="ui-icon ui-icon-closethick"></span>                                
+                                    &nbsp;
+                                <span class="ui-icon ui-icon-transferthick-e-w"></span>--%>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                </asp:GridView>
+                <asp:Button runat="server" ID="btnUpdateLista" Visible="false" 
+                    onclick="btnUpdateLista_Click" />
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </div>
 
     <asp:Panel ID="panDatoProblema" runat="server">
         <asp:UpdatePanel ID="updDatoProblema" runat="server" UpdateMode="Conditional">
             <ContentTemplate>
+                <script type="text/javascript">
+                    Sys.Application.add_load(muestraModal);
+                    Sys.Application.add_load(muestraAccion);
+     		    </script>
                 <table>
                     <tr>
                         <td>
-                            Creado Desde
+                            Mejora Creada PC
                         </td>
                         <td>
                             <asp:TextBox ID="txtCreadorPc" runat="server" Enabled="false"></asp:TextBox>
@@ -230,6 +343,11 @@
                         </td>
                         <td>
                             <asp:TextBox ID="txtAccion" runat="server" placeholder="Acción que se realiza"></asp:TextBox>
+                            <asp:DropDownList ID="cboAccion" runat="server" oninit="cboAccion_Init">
+                            </asp:DropDownList>
+                            <%--<asp:Button ID="Button1" runat="server" Text="Button" onclick="Button1_Click" />--%>
+                            <input type="button" name="btnAgregaAcc" id="btnAgregaAcc" value="Agregar Accion" />
+                            <input type="button" name="btnEditaAcc" id="btnEditaAcc" value="Editar Accion" />
                         </td>
                     </tr>
                     <tr>
@@ -414,5 +532,31 @@
         function validaObsMejora() {
             $("<div id='dialog' title='Largo Texto Segto Mejora'><p>El texto del Seguimiento de la Mejora no puede superar los 500 caracteres.</p></div>").dialog({ modal: true });
         }
+
+        $("#btnAccAdd").on('click', function () {
+            $.ajax({
+                type: "POST",
+                url: "/asmx_files/problema_llenado_cbo.asmx/setAccion",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ "nombreacc": $("#nomAcc").val() }),
+                success: function (data, status) {
+                    if (data.d) {
+                        alert("Guardado");
+                        __doPostBack('<%=cboAccion.ClientID %>', '');
+                        $("#dialog-accion").dialog("close");
+                        $("#dialog-accion").dialog("open");
+                    }
+                    else {
+                        alert("La accion ingresada ya existe");
+                        __doPostBack('<%=cboAccion.ClientID %>', '');
+                    }
+                    $("#nomAcc").val("");
+                },
+                error: function (data) {
+                    alert("Error al Guardar");
+                }
+            });
+        });
         </script>
 </asp:Content>

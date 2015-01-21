@@ -91,14 +91,15 @@ namespace CentralizacionProblemas.forms
                 lblObs.Text = ((Label)gvListaProblema.Rows[fIndex].FindControl("PROBLEMA_ID")).Text;
                 lblTituloSgto.Text = ((Label)gvListaProblema.Rows[fIndex].FindControl("PROBLEMA_ID")).Text;
                 lblTituloMejora.Text = ((Label)gvListaProblema.Rows[fIndex].FindControl("PROBLEMA_ID")).Text;
+                cddArea.SelectedValue = objProblemaBal.getMejoraArea(((Label)gvListaProblema.Rows[fIndex].FindControl("PROBLEMA_ID")).Text);
 
                 Session["id_problema"] = ((Label)gvListaProblema.Rows[fIndex].FindControl("PROBLEMA_ID")).Text;
 
-                String[] dUsr = objProblemaBal.getUsrArea(((Label)gvListaProblema.Rows[fIndex].FindControl("PROBLEMA_ID")).Text);
-                //txtResponsable.Text = objProblemaBal.getNombreLogin(Session["nom_logeado"].ToString());
+                //String[] dUsr = objProblemaBal.getUsrArea(((Label)gvListaProblema.Rows[fIndex].FindControl("PROBLEMA_ID")).Text);
+                ////txtResponsable.Text = objProblemaBal.getNombreLogin(Session["nom_logeado"].ToString());
 
-                cddArea.SelectedValue = dUsr[0];
-                cddResponsable.SelectedValue = dUsr[1];
+                //cddArea.SelectedValue = dUsr[0];
+                //cddResponsable.SelectedValue = dUsr[1];
 
                 gvListaProblema.Rows[fIndex].BackColor = ColorTranslator.FromHtml("#A1DCF2");
 
@@ -113,6 +114,18 @@ namespace CentralizacionProblemas.forms
                 cleanSeguimientoProblema();
                 txtFechaComp.Text = objProblemaBal.getFComprimiso(((Label)gvListaProblema.Rows[fIndex].FindControl("PROBLEMA_ID")).Text);
                 getSeguimientoProblema(((Label)gvListaProblema.Rows[fIndex].FindControl("PROBLEMA_ID")).Text);
+
+                String usr = Request.Cookies["v_u"].Value;
+                Boolean valido = objProblemaBal.validaIngresoSeguimiento(usr, ((Label)gvListaProblema.Rows[fIndex].FindControl("PROBLEMA_ID")).Text);
+
+                if (!valido)
+                {
+                    btnCerrar.Enabled = false;
+                }
+                else
+                {
+                    btnCerrar.Enabled = true;
+                }
 
                 updTituloMejora.Update();
                 updMejora.Update();
@@ -305,6 +318,50 @@ namespace CentralizacionProblemas.forms
                     pose = pose + 1;
                 }
             }
+        }
+
+        protected void cboAccion_Init(object sender, EventArgs e)
+        {
+            filtro_bal f = new filtro_bal();
+
+            cboAccion.Items.Add(new ListItem("Seleccione", "0"));
+
+            foreach (Accion a in f.getAccionSgto())
+            {
+                cboAccion.Items.Add(new ListItem(a.nomacc, a.idnacc));
+            }
+        }
+
+        protected void gvListaAccion_Init(object sender, EventArgs e)
+        {
+            setListaAccion();
+        }
+
+        public void setListaAccion()
+        {
+            filtro_bal f = new filtro_bal();
+            gvListaAccion.DataSource = null;
+            gvListaAccion.DataSource = f.getAccionSgto().OrderByDescending(it => Convert.ToInt32(it.idnacc)).ToList();
+            gvListaAccion.DataBind();
+        }
+
+        protected void btnUpdateLista_Click(object sender, EventArgs e)
+        {
+            setListaAccion();
+            upListaAccion.Update();
+        }
+
+        [System.Web.Services.WebMethod]
+        public void refreshListaAccion()
+        {
+            setListaAccion();
+            upListaAccion.Update();
+        }
+
+        protected void upListaAccion_Load(object sender, EventArgs e)
+        {
+            setListaAccion();
+            upListaAccion.Update();
         }
     }
 }

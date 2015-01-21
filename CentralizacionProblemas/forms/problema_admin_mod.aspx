@@ -11,34 +11,35 @@
         <script type="text/javascript">
             function muestraModal() {
                 //$(document).ready(function () {
-                    $("#btnAgregaAcc").click(function () {
-                        $("#dialog-form").dialog({
-                            buttons: {
-                                "Agregar": guardaAccion
+                $("#accion").val("");
+                $("#btnAgregaAcc").click(function () {                    
+                    $("#dialog-form").dialog({
+                        buttons: {
+                            "Agregar": guardaAccion
                             ,
-                                Cerrar: function () {
-                                    $(this).dialog('close');
-                                }
-                            },
-                            modal: true
-                        });
-                    });
-                //});
-                }
-
-                function muestraAccion() {
-                    $("#btnAddAcc").click(function () {
-                        $("#dialog-accion").dialog({
-                            modal: true,
-                            width: "300px",
-                            buttons: {
-                                Cerrar: function () {
-                                    $(this).dialog('close');
-                                }
+                            Cerrar: function () {
+                                $(this).dialog('close');
                             }
-                        });
+                        },
+                        modal: true
                     });
-                }
+                });                
+            }
+
+            function muestraAccion() {
+                $("#btnEditaAcc").click(function () {
+                    //__doPostBack('<%=upListaAccion.ClientID %>', '');                    
+                    $("#dialog-accion").dialog({
+                        modal: true,
+                        width: "300px",
+                        buttons: {
+                            Cerrar: function () {
+                                $(this).dialog('close');
+                            }
+                        }
+                    });
+                });
+            }
 
             function guardaAccion() {
                 $.ajax({
@@ -50,8 +51,9 @@
                     data: JSON.stringify({ "nombreacc": $("#accion").val() }),
                     success: function (data, status) {
                         if (data.d) {
-                            __doPostBack('<%=cboAccion.ClientID %>', '');
+                            __doPostBack('<%=cboAccion.ClientID %>', '');                            
                             alert("Guardado");
+                            $("#dialog-form").dialog('close');
                         }
                         else {
                             alert("La accion ingresada ya existe");
@@ -254,16 +256,17 @@
     </div>
 
     <div id="dialog-accion" title="Ingreso Accion" style="display:none;">
-        <asp:UpdatePanel ID="upListaAccion" runat="server" UpdateMode="Conditional">
-            <ContentTemplate>
-                <form>
-                <fieldset>
-                    <label for="name">Nombre Accion</label>
-                    <input type="text" name="nomAcc" id="nomAcc" value="" class="text ui-widget-content ui-corner-all" />
-                    <br /><br />
-                    <input type="button" value="Agregar" name="Agregar" id="btnAccAdd" />
-                </fieldset>
-                </form>
+        <form>
+        <fieldset>
+            <label for="name">Nombre Accion</label>
+            <input type="text" name="nomAcc" id="nomAcc" value="" class="text ui-widget-content ui-corner-all" />
+            <br /><br />
+            <input type="button" value="Agregar" name="Agregar" id="btnAccAdd" />
+        </fieldset>
+        </form>
+        <asp:UpdatePanel ID="upListaAccion" runat="server" UpdateMode="Conditional" 
+            onload="upListaAccion_Load">
+            <ContentTemplate>                
                 <asp:GridView HorizontalAlign="Center" ID="gvListaAccion" runat="server" AutoGenerateColumns="false" 
                     AllowPaging="true" PageSize="5" PagerSettings-PageButtonCount="5" PagerSettings-Mode="NumericFirstLast" 
                             PagerSettings-FirstPageText="Primera" 
@@ -308,7 +311,7 @@
                 <table>
                     <tr>
                         <td>
-                            Creado Desde
+                            Mejora Creada PC
                         </td>
                         <td>
                             <asp:TextBox ID="txtCreadorPc" runat="server" Enabled="false"></asp:TextBox>
@@ -325,7 +328,7 @@
                             </asp:DropDownList>
                             <%--<asp:Button ID="Button1" runat="server" Text="Button" onclick="Button1_Click" />--%>
                             <input type="button" name="btnAgregaAcc" id="btnAgregaAcc" value="Agregar Accion" />
-                            <input type="button" name="btnAddAcc" id="btnAddAcc" value="Add Acc" />
+                            <input type="button" name="btnEditaAcc" id="btnEditaAcc" value="Editar Accion" />
                         </td>
                     </tr>
                     <tr>
@@ -522,21 +525,22 @@
             $("#btnAccAdd").on('click', function () {
                 $.ajax({
                     type: "POST",
-
                     url: "/asmx_files/problema_llenado_cbo.asmx/setAccion",
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({ "nombreacc": $("#nomAcc").val() }),
                     success: function (data, status) {
                         if (data.d) {
-                            __doPostBack('<%=cboAccion.ClientID %>', '');
                             alert("Guardado");
+                            __doPostBack('<%=cboAccion.ClientID %>', '');
                             $("#dialog-accion").dialog("close");
+                            $("#dialog-accion").dialog("open");
                         }
                         else {
                             alert("La accion ingresada ya existe");
                             __doPostBack('<%=cboAccion.ClientID %>', '');
                         }
+                        $("#nomAcc").val("");
                     },
                     error: function (data) {
                         alert("Error al Guardar");
