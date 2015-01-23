@@ -270,29 +270,38 @@
                 <asp:GridView HorizontalAlign="Center" ID="gvListaAccion" runat="server" AutoGenerateColumns="false" 
                     AllowPaging="true" PageSize="5" PagerSettings-PageButtonCount="5" PagerSettings-Mode="NumericFirstLast" 
                             PagerSettings-FirstPageText="Primera" 
-                    PagerSettings-LastPageText="Ultima" oninit="gvListaAccion_Init">
+                    PagerSettings-LastPageText="Ultima" oninit="gvListaAccion_Init" 
+                    onpageindexchanging="gvListaAccion_PageIndexChanging">
+                    <RowStyle CssClass="nomTodoAccion" />
                     <Columns>
-                        <asp:TemplateField HeaderText="IdAccion" ItemStyle-HorizontalAlign="Center" Visible="false">
+                        <asp:TemplateField HeaderText="ID" ItemStyle-HorizontalAlign="Center" Visible="false">
                             <ItemTemplate>
-                                <asp:Label ID="lblIdAccion" runat="server" Text='<%# Bind("IDNACC") %>'></asp:Label>
+                                <asp:Label ID="lblIdAccion" CssClass="nroAccion" runat="server" Text='<%# Bind("IDNACC") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
 
                         <asp:TemplateField HeaderText="Accion" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="150px">
                             <ItemTemplate>
-                                <asp:Label ID="lblAccion" runat="server" Text='<%# Bind("NOMACC") %>'></asp:Label>
+                                <asp:Label ID="lblAccion" CssClass="nomAccion" runat="server" Text='<%# Bind("NOMACC") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
 
-                        <asp:TemplateField HeaderText="" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="50px">
+                        <asp:TemplateField HeaderText="" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="30px">
                             <ItemTemplate>
-                                <a href="#" id="btn-delete" class="ui-icon ui-icon-closethick"></a>
-                                <a href="#" id="btn-update" class="ui-icon ui-icon-transferthick-e-w"></a>
+                                <%--<a href="javascript:void(null);" id="btn-delete" onclick="borraAccion();" class="ui-icon ui-icon-closethick"></a>  --%>
+                                <a href="javascript:void(null);" id="btn-update" onclick="actualizaAccion();" class="ui-icon ui-icon-transferthick-e-w"></a>                              
                                 <%--<span class="ui-icon ui-icon-closethick"></span>                                
                                     &nbsp;
                                 <span class="ui-icon ui-icon-transferthick-e-w"></span>--%>
                             </ItemTemplate>
                         </asp:TemplateField>
+
+                        <%--<asp:TemplateField HeaderText="" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="50px">
+                            <ItemTemplate>
+                                
+                            </ItemTemplate>
+                        </asp:TemplateField>--%>
+
                     </Columns>
                 </asp:GridView>
                 <asp:Button runat="server" ID="btnUpdateLista" Visible="false" 
@@ -323,7 +332,7 @@
                             Accion *
                         </td>
                         <td>
-                            <asp:TextBox ID="txtAccion" runat="server" placeholder="Acción que se realiza"></asp:TextBox>
+                            <%--<asp:TextBox ID="txtAccion" runat="server" placeholder="Acción que se realiza"></asp:TextBox>--%>
                             <asp:DropDownList ID="cboAccion" runat="server" oninit="cboAccion_Init">
                             </asp:DropDownList>
                             <%--<asp:Button ID="Button1" runat="server" Text="Button" onclick="Button1_Click" />--%>
@@ -436,11 +445,12 @@
                             <h1>NO HAY SEGUIMIENTOS PARA EL ITEM SELECCIONADO</h1>
                         </center>
                     </EmptyDataTemplate>
+                    <RowStyle CssClass="nomTodoSegto" />
                     <Columns>
                     
                         <asp:TemplateField HeaderText="Nro" ItemStyle-Width="40px" ItemStyle-HorizontalAlign="Center">
                             <ItemTemplate>
-                                <asp:Label ID="SEGUIMIENTO_ID" runat="server" Text='<%# Bind("SEGUIMIENTO_ID") %>'></asp:Label>
+                                <asp:Label ID="SEGUIMIENTO_ID" CssClass="nroSegto" runat="server" Text='<%# Bind("SEGUIMIENTO_ID") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
 
@@ -452,7 +462,7 @@
 
                         <asp:TemplateField HeaderText="ID Problema" ItemStyle-HorizontalAlign="Center" Visible="false">
                             <ItemTemplate>
-                                <asp:Label ID="PROBLEMA_ID" runat="server" Text='<%# Bind("PROBLEMA_ID") %>'></asp:Label>
+                                <asp:Label ID="PROBLEMA_ID" runat="server" CssClass="nroProb" Text='<%# Bind("PROBLEMA_ID") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
 
@@ -482,7 +492,8 @@
 
                         <asp:TemplateField HeaderText="Observación" ItemStyle-Width="500px" ItemStyle-HorizontalAlign="Center">
                             <ItemTemplate>
-                                <asp:Label ID="SEGUIMIENTO_OBSERVACION" runat="server" Text='<%# Bind("SEGUIMIENTO_OBSERVACION") %>'></asp:Label>
+                                <asp:Label Visible="false" ID="SEGUIMIENTO_OBSERVACION" runat="server" Text='<%# Bind("SEGUIMIENTO_OBSERVACION") %>'></asp:Label>
+                                <a href="javascript:void(null);" id="a-ver-obs" onclick="verObservacion();">Ver Observacion</a>
                             </ItemTemplate>
                         </asp:TemplateField>
 
@@ -491,6 +502,43 @@
             </ContentTemplate>
         </asp:UpdatePanel>
     </asp:Panel>   
+
+    <div id="dialog-segto" title="Observacion" style="display:none">
+        Nro Seguimiento: &nbsp; <label id="lblNroSegto"></label>
+        <br />
+        Observacion: <br /> <label id="lblObsSegto"></label>
+    </div>
+
+    <div id="dialog-tab" title="Elija Opcion" style="display:none">
+        <div id="tab">
+            <ul>
+                <li><a href="#tab-upd">Actualizar</a></li>
+                <li><a href="#tab-del">Borrar</a></li>
+            </ul>
+            <div id="tab-upd">
+                <div id="dialog-actualiza" title="Actualiza Accion">
+                    Ingrese el nuevo nombre de la accion
+                    <br /><br />
+                    Nombre Actual: &nbsp; <label id="lblAccionNomActual"></label>
+                    <br />
+                    Nombre Nuevo: &nbsp; <input type="text" id="txt-nom-acc" class="text ui-widget-content ui-corner-all" name="txt-nom-acc" value=""/>
+                    <br /><br />
+                    <input type="button" id="btn-actualiza-sgto" value="Actualizar" name="btn-actualiza-sgto" />
+                </div>
+            </div>
+
+            <div id="tab-del">
+                <div id="dialog-borra" title="Borrar Accion">
+                    Esta seguro que desea borrar la siguiente Accion?
+                    <br /><br />
+                    Nombre Accion: &nbsp;
+                    <label id="lblBorraSegto"></label>
+                    <br /><br />
+                    <input type="button" id="btn-borra-sgto" value="Borrar" name="btn-borra-sgto" />
+                </div> 
+            </div>
+        </div>
+    </div>       
 
     <script type="text/javascript">
         function cambiaCliente() {
@@ -546,6 +594,116 @@
                         alert("Error al Guardar");
                     }
                 });
+            });
+
+            function verObservacion() {
+                $('.nomTodoSegto').on('click', function () {
+                    var segtoID = $(".nroSegto", $(this).closest("tr")).html();
+                    var problID = $("#<%=lblObs.ClientID %>").text();
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/asmx_files/problema_llenado_cbo.asmx/getObservacion",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({ "pid": problID, "sid": segtoID }),
+                        success: function (data, status) {
+                            $("#lblObsSegto").html(data.d);
+                        },
+                        error: function (data) {
+                            alert("Error al consultar");
+                        }
+                    });
+
+                    $("#lblNroSegto").html(segtoID);                    
+                    $("#dialog-segto").dialog({
+                        modal: true,
+                        width: "600px",
+                        buttons: {
+                            "OK": function () {
+                                $(this).dialog('close');
+                            }
+                        }
+                    });
+                });
+                return false;
+            }
+
+            var nomacc;
+            function actualizaAccion() {                
+                $('.nomTodoAccion').on('click', function () {
+                    nomacc = $(".nomAccion", $(this).closest("tr")).html();
+
+                    $("#dialog-accion").dialog("close");
+
+                    $("#lblAccionNomActual").html(nomacc);
+                    $("#lblBorraSegto").html(nomacc);
+
+                    $("#dialog-tab").dialog({
+                        modal: true,
+                        width: "500px"
+                    });
+                });
+                return false;
+            }
+
+            $("#btn-borra-sgto").on('click', function () {
+                $("#dialog-tab").dialog('close');
+                $.ajax({
+                    type: "POST",
+                    url: "/asmx_files/problema_llenado_cbo.asmx/delAccion",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ "nom": nomacc }),
+                    success: function (data, status) {
+                        __doPostBack('<%=cboAccion.ClientID %>', '');
+                        $("<div id='dialog-msg-del' title='Mensaje Accion'><p>La accion ha sido borrada</p></div>").dialog({
+                            modal: true,
+                            "OK": function () {
+                                $(this).dialog('close');
+                            }
+                        });
+                    },
+                    error: function (data) {
+                        alert("Error al enviar datos");
+                    }
+                });
+            });
+
+            $("#btn-actualiza-sgto").on('click', function () {
+                $("#dialog-tab").dialog('close');
+                $.ajax({
+                    type: "POST",
+                    url: "/asmx_files/problema_llenado_cbo.asmx/updAccion",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ "nomv": nomacc, "nom": $("#txt-nom-acc").val() }),
+                    success: function (data, status) {
+                        __doPostBack('<%=cboAccion.ClientID %>', '');
+                        $("<div id='dialog-msg-upd' title='Mensaje Accion'><p>La accion ha sido Actualizada</p></div>").dialog({
+                            modal: true,
+                            "Cerrar": function () {
+                                $(this).dialog('close');
+                            }
+                        });
+                        $("#txt-nom-acc").val("");
+                    },
+                    error: function (data) {
+                        alert("Error al enviar datos");
+                    }
+                });
+            });   
+
+            $(document).ready(function () {
+                var usrcookie = $.cookie("v_u");
+                if (usrcookie != 'jocontreras' && usrcookie != 'wcontreras') {
+                    $("#btnAgregaAcc").css("display", "none");
+                    $("#btnEditaAcc").css("display", "none");
+                }
+            });
+
+            $(function () {
+                $("#tab").tabs();
             });
     </script>
 </asp:Content>

@@ -93,7 +93,7 @@ namespace CentralizacionProblemas
             {
                 msg += "Debe ingresar un responsable<br>";
             }
-            if (String.IsNullOrEmpty(txtAccion.Text))
+            if (cboAccion.SelectedValue.Equals("0"))//String.IsNullOrEmpty(txtAccion.Text)
             {
                 msg += "Debe ingresar una accion<br>";
             }
@@ -135,7 +135,7 @@ namespace CentralizacionProblemas
             detsgto.estado_id = cboEstado.SelectedValue;
             detsgto.problema_id = Session["id_problema"].ToString();
             detsgto.seguimiento_responsable = cboResponsable.SelectedItem.ToString();//txtResponsable.Text;
-            detsgto.seguimiento_accion = txtAccion.Text;
+            detsgto.seguimiento_accion = cboAccion.SelectedValue;
             detsgto.seguimiento_fcompromiso = txtFechaComp.Text;
             detsgto.seguimiento_fcierre = txtFechaCierre.Text;
             detsgto.seguimiento_observacion = txtObservacion.Text;
@@ -168,7 +168,8 @@ namespace CentralizacionProblemas
             cddEstado.SelectedValue = "0";
             cddArea.SelectedValue = "0";
             //txtResponsable.Text = "";
-            txtAccion.Text = "";
+            //txtAccion.Text = "";
+            cboAccion.SelectedValue = "0";
             txtFechaComp.Text = "";
             txtFechaCierre.Text = "";
             txtObservacion.Text = "";
@@ -351,6 +352,12 @@ namespace CentralizacionProblemas
         {
             setListaAccion();
             upListaAccion.Update();
+        }
+
+        protected void gvListaAccion_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvListaAccion.PageIndex = e.NewPageIndex;
+            setListaAccion();
         }
     }
 }

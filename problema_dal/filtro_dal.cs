@@ -119,5 +119,46 @@ namespace problema_dal
                 con.Close();
             }
         }
+
+        public void deleteAccionSgto(String nom) 
+        {
+            using (OracleConnection con = new OracleConnection(conStr)) 
+            {
+                con.Open();
+                String qry = "UPDATE TBLACCION SET ACC_ESTADO = 0 WHERE ACC_NOMBRE = :INNOACC";
+                using (OracleCommand cmd = new OracleCommand(qry, con)) 
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new OracleParameter("INNOACC", OracleDbType.Varchar2)).Value = nom;
+                    cmd.Parameters["INNOACC"].Direction = ParameterDirection.Input;
+
+                    cmd.ExecuteNonQuery();
+                }
+                con.Close();
+            }
+        }
+
+        public void updateAccionSgto(String nomv, String noms) 
+        {
+            using (OracleConnection con = new OracleConnection(conStr))
+            {
+                con.Open();
+                String qry = "UPDATE TBLACCION SET ACC_NOMBRE = :INNOACC WHERE ACC_NOMBRE = :INNOVACC";
+                using (OracleCommand cmd = new OracleCommand(qry, con)) 
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new OracleParameter("INNOACC", OracleDbType.Varchar2)).Value = noms;
+                    cmd.Parameters["INNOACC"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.Add(new OracleParameter("INNOVACC", OracleDbType.Varchar2)).Value = nomv;
+                    cmd.Parameters["INNOVACC"].Direction = ParameterDirection.Input;
+
+                    cmd.ExecuteNonQuery();
+                }
+                con.Close();
+            }
+        }
     }
 }

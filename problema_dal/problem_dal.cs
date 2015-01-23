@@ -263,7 +263,7 @@ namespace problema_dal
             return usr_nom;
         }
 
-        public void insertSeguimiento(int ds_estado_id, int ds_problema_id, String ds_sgto_responsable, String ds_sgto_accion, String ds_sgto_fcompromiso, String ds_sgto_fcierre, String ds_sgto_obs) 
+        public void insertSeguimiento(int ds_estado_id, int ds_problema_id, String ds_sgto_responsable, String ds_sgto_fcompromiso, String ds_sgto_fcierre, String ds_sgto_obs, int ds_sgto_accion) 
         {
             using (OracleConnection con = new OracleConnection(conStr))
             {
@@ -280,10 +280,7 @@ namespace problema_dal
                     cmd.Parameters["ds_problema_id"].Direction = ParameterDirection.Input;
 
                     cmd.Parameters.Add(new OracleParameter("ds_sgto_responsable", OracleDbType.Varchar2)).Value = ds_sgto_responsable;
-                    cmd.Parameters["ds_sgto_responsable"].Direction = ParameterDirection.Input;
-
-                    cmd.Parameters.Add(new OracleParameter("ds_sgto_accion", OracleDbType.Varchar2)).Value = ds_sgto_accion;
-                    cmd.Parameters["ds_sgto_accion"].Direction = ParameterDirection.Input;
+                    cmd.Parameters["ds_sgto_responsable"].Direction = ParameterDirection.Input;                    
 
                     cmd.Parameters.Add(new OracleParameter("ds_sgto_fcompromiso", OracleDbType.Varchar2)).Value = ds_sgto_fcompromiso;
                     cmd.Parameters["ds_sgto_fcompromiso"].Direction = ParameterDirection.Input;
@@ -292,7 +289,10 @@ namespace problema_dal
                     cmd.Parameters["ds_sgto_fcierre"].Direction = ParameterDirection.Input;
 
                     cmd.Parameters.Add(new OracleParameter("ds_sgto_obs", OracleDbType.Varchar2)).Value = ds_sgto_obs;
-                    cmd.Parameters["ds_sgto_obs"].Direction = ParameterDirection.Input;   
+                    cmd.Parameters["ds_sgto_obs"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.Add(new OracleParameter("ds_sgto_accion", OracleDbType.Int32)).Value = ds_sgto_accion;
+                    cmd.Parameters["ds_sgto_accion"].Direction = ParameterDirection.Input;
 
                     cmd.ExecuteNonQuery();
                 }

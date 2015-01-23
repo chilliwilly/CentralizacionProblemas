@@ -83,7 +83,7 @@
     <div id="dialog-confirm" title="Error Compatibilidad" style="display:none;">
          <p>
              <span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;"></span>
-             El navegador que esta utilizando no es compatible con algunas de las nuevas funciones incorporadas.
+             El navegador que esta utilizando no es compatible con algunas de las nuevas funciones incorporadas. Se recomienda usar chrome o firefox.
          </p>
     </div>
 </body>

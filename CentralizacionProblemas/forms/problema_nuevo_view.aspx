@@ -288,11 +288,12 @@
                         <h1>NO HAY SEGUIMIENTOS PARA EL ITEM SELECCIONADO</h1>
                     </center>
                 </EmptyDataTemplate>
+                <RowStyle CssClass="nomTodoSegto" />
                 <Columns>
                     
                     <asp:TemplateField HeaderText="Nro" ItemStyle-Width="40px" ItemStyle-HorizontalAlign="Center">
                         <ItemTemplate>
-                            <asp:Label ID="SEGUIMIENTO_ID" runat="server" Text='<%# Bind("SEGUIMIENTO_ID") %>'></asp:Label>
+                            <asp:Label ID="SEGUIMIENTO_ID" runat="server" CssClass="nroSegto" Text='<%# Bind("SEGUIMIENTO_ID") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
 
@@ -334,7 +335,8 @@
 
                     <asp:TemplateField HeaderText="Observación" ItemStyle-Width="500px" ItemStyle-HorizontalAlign="Center">
                         <ItemTemplate>
-                            <asp:Label ID="SEGUIMIENTO_OBSERVACION" runat="server" Text='<%# Bind("SEGUIMIENTO_OBSERVACION") %>'></asp:Label>
+                            <asp:Label Visible="false" ID="SEGUIMIENTO_OBSERVACION" runat="server" Text='<%# Bind("SEGUIMIENTO_OBSERVACION") %>'></asp:Label>
+                            <a href="javascript:void(null);" id="a-ver-obs" onclick="verObservacion();">Ver Observacion</a>
                         </ItemTemplate>
                     </asp:TemplateField>
 
@@ -344,6 +346,12 @@
         </ContentTemplate>
     </asp:UpdatePanel>
     </asp:Panel>
+
+    <div id="dialog-segto" title="Observacion" style="display:none">
+        Nro Seguimiento: &nbsp; <label id="lblNroSegto"></label>
+        <br />
+        Observacion: <br /> <label id="lblObsSegto"></label>
+    </div>
 
     <!-- 
         INICIO JAVASCRIPT
@@ -393,30 +401,38 @@
         }
         reloadNumeroMejora();
 
-        //            function busquedaNroTexto() {
-        //                var txtNum = $('#txtNumero').val(); // document.getElementById("txtNumero").value;
-        //                var txtArea = document.getElementById("<%=cboAreaMejora.ClientID %>").value;
-        //                var txtEstado = document.getElementById("<%=cboEstado.ClientID %>").value;
-        //                var txtFD = document.getElementById("<%=txtFechaD.ClientID %>").value;
-        //                var txtFH = document.getElementById("<%=txtFechaH.ClientID %>").value;
-        //                var txtMsg = "";
-        //                var valida = true;
+        function verObservacion() {
+            $('.nomTodoSegto').on('click', function () {
+                var segtoID = $(".nroSegto", $(this).closest("tr")).html();
+                var problID = $("#<%=lblObs.ClientID %>").text();
 
-        //                if ((txtNum == null || txtNum == "") && (txtArea == null || txtArea == "" || txtEstado == null || txtEstado == "" || txtFD == null || txtFD == "" || txtFH == null || txtFH == "")) {
-        //                    txtMsg += "Debe seleccionar opcion de busuqeda: Buscar por Numero o Por los 4 Filtros empezando por Area Mejora\n";
-        //                    valida = false;
-        //                }
-        //                else if ((txtNum != null || txtNum != "") && (txtArea != null || txtArea != "" || txtEstado != null || txtEstado != "" || txtFD != null || txtFD != "" || txtFH != null || txtFH != "")) {
-        //                    txtMsg += "Puede buscar por numero de Mejora o por Estados/Fechas pero no por ambos\n";
-        //                    valida = false;
-        //                }
-        //                else if ((txtNum == null || txtNum == "") && (txtArea == null || txtArea == "" && txtEstado == null || txtEstado == "" && txtFD == null || txtFD == "" && txtFH == null || txtFH == "")) {
-        //                    txtMsg += "Mensaje\n";
-        //                    valida = false;
-        //                }
-        //                alert(txtMsg);
-        //                return valida;
-        //            }
+                $.ajax({
+                    type: "POST",
+                    url: "/asmx_files/problema_llenado_cbo.asmx/getObservacion",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ "pid": problID, "sid": segtoID }),
+                    success: function (data, status) {
+                        $("#lblObsSegto").html(data.d);
+                    },
+                    error: function (data) {
+                        alert("Error al consultar");
+                    }
+                });
+
+                $("#lblNroSegto").html(segtoID);
+                $("#dialog-segto").dialog({
+                    modal: true,
+                    width: "600px",
+                    buttons: {
+                        "OK": function () {
+                            $(this).dialog('close');
+                        }
+                    }
+                });
+            });
+            return false;
+        }
         </script>
     <!-- 
         FIN JAVASCRIPT

@@ -42,46 +42,49 @@ namespace CentralizacionProblemas
 
         private void set_Problema() 
         {
-            //objProblemaBal = new problem_bal();
-            //String f = txtFecha.Text;
-            
-            //Problema pr = new Problema();
-            //pr.problema_fecha = f;
-            //pr.problema_informante = cboInformante.SelectedItem.ToString();
-            //pr.problema_oioe = txtOrden.Text;
-            //pr.problema_detmejora = txtDetalleMejora.Text;
-            //pr.problema_creadorpc = pc_usr;
-            //pr.area_id = cboAreaInformante.SelectedValue;
-            //pr.mejora_id = cboTipoMejora.SelectedValue;
-            //pr.amejora_id = cboAreaMejora.SelectedValue;
+            objProblemaBal = new problem_bal();
+            String f = txtFecha.Text;
 
-            //if (cboCliente.SelectedValue.Equals(""))
-            //{
-            //    pr.cliente_id = null;
-            //}
-            //else
-            //{
-            //    pr.cliente_id = cboCliente.SelectedValue;
-            //}
+            Problema pr = new Problema();
+            pr.problema_fecha = f;
+            pr.problema_informante = cboInformante.SelectedItem.ToString();
+            pr.problema_oioe = txtOrden.Text;
+            pr.problema_detmejora = txtDetalleMejora.Text;
+            pr.problema_creadorpc = pc_usr;
+            pr.area_id = cboAreaInformante.SelectedValue;
+            pr.mejora_id = cboTipoMejora.SelectedValue;
+            pr.amejora_id = cboAreaMejora.SelectedValue;
 
-            //String idusr = cboInformante.SelectedValue;
-
-            //if (!objProblemaBal.validaFecha(f))
-            //{
-            //    cddAreaMejora.SelectedValue = "0";
-            //    String nd = "alert(\"Fecha Invalida.\");";
-            //    ScriptManager.RegisterStartupScript(this, GetType(), "Error Mensaje", nd, true);
-            //}
-            //else 
-            //{
-            //    objProblemaBal.setProblema(pr);                
-            //    objProblemaBal.enviarMailProblemaIn("Creado", idusr);
-            //    String pathPage = "window.location='" + Request.ApplicationPath + "forms/load.aspx'";
-            //    ScriptManager.RegisterStartupScript(this, GetType(), "Alert", pathPage, true);
-            //}
-            if (txtDetalleMejora.Text.Length >= 500) 
+            if (txtDetalleMejora.Text.Length >= 500)
             {
                 ScriptManager.RegisterStartupScript(this, GetType(), "", "validaLargoDetMej();", true);
+            }
+            else
+            {
+                if (cboCliente.SelectedValue.Equals(""))
+                {
+                    pr.cliente_id = null;
+                }
+                else
+                {
+                    pr.cliente_id = cboCliente.SelectedValue;
+                }
+
+                String idusr = cboInformante.SelectedValue;
+
+                if (!objProblemaBal.validaFecha(f))
+                {
+                    cddAreaMejora.SelectedValue = "0";
+                    String nd = "alert(\"Fecha Invalida.\");";
+                    ScriptManager.RegisterStartupScript(this, GetType(), "Error Mensaje", nd, true);
+                }
+                else
+                {
+                    objProblemaBal.setProblema(pr);
+                    objProblemaBal.enviarMailProblemaIn("Creado", idusr);
+                    String pathPage = "window.location='" + Request.ApplicationPath + "forms/load.aspx'";
+                    ScriptManager.RegisterStartupScript(this, GetType(), "Alert", pathPage, true);
+                }
             }
         }
 

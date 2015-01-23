@@ -191,7 +191,7 @@ namespace problema_bal
                     detSgto.estado_id = dr["ESTADO_NOMBRE"].ToString();
                     detSgto.problema_id = dr["PROBLEMA_ID"].ToString();
                     detSgto.seguimiento_responsable = dr["SEGUIMIENTO_RESPONSABLE"].ToString();
-                    detSgto.seguimiento_accion = dr["SEGUIMIENTO_ACCION"].ToString();
+                    detSgto.seguimiento_accion = dr["SEGUIMIENTOACCION"].ToString();
 
                     if (dr["SEGUIMIENTO_FCOMPROMISO"] == DBNull.Value)
                     {
@@ -240,8 +240,9 @@ namespace problema_bal
             objProblemaDal = new problem_dal();
             int id_estado = int.Parse(detsgto.estado_id);
             int id_problema = int.Parse(detsgto.problema_id);
+            int id_accion = int.Parse(detsgto.seguimiento_accion);
 
-            objProblemaDal.insertSeguimiento(id_estado, id_problema, detsgto.seguimiento_responsable, detsgto.seguimiento_accion, detsgto.seguimiento_fcompromiso, detsgto.seguimiento_fcierre, detsgto.seguimiento_observacion);
+            objProblemaDal.insertSeguimiento(id_estado, id_problema, detsgto.seguimiento_responsable, detsgto.seguimiento_fcompromiso, detsgto.seguimiento_fcierre, detsgto.seguimiento_observacion, id_accion);
 
             enviarMailNuevoSegto(NomCreado, detsgto.problema_id, nomestado, detsgto.seguimiento_fcompromiso);
             enviarMailResponsableSgto(responsable, detsgto.problema_id, nomestado, detsgto.seguimiento_fcompromiso);

@@ -36,7 +36,7 @@ namespace CentralizacionProblemas.forms
             detsgto.estado_id = cboEstado.SelectedValue;
             detsgto.problema_id = Session["id_problema"].ToString();
             detsgto.seguimiento_responsable = cboResponsable.SelectedItem.ToString();
-            detsgto.seguimiento_accion = txtAccion.Text;
+            detsgto.seguimiento_accion = cboAccion.SelectedValue;
             detsgto.seguimiento_fcompromiso = txtFechaComp.Text;
             detsgto.seguimiento_fcierre = txtFechaCierre.Text;
             detsgto.seguimiento_observacion = txtObservacion.Text;
@@ -70,7 +70,8 @@ namespace CentralizacionProblemas.forms
             cddEstado.SelectedValue = "3";
             cddArea.SelectedValue = "0";
             //txtResponsable.Text = "";
-            txtAccion.Text = "";
+            //txtAccion.Text = "";
+            cboAccion.SelectedValue = "0";
             txtFechaComp.Text = objProblemaBal.getFComprimiso(Session["id_problema"].ToString());
             txtFechaCierre.Text = DateTime.Now.Date.ToString("dd/MM/yyyy");
             txtObservacion.Text = "";
@@ -169,7 +170,7 @@ namespace CentralizacionProblemas.forms
             {
                 msg += "Debe ingresar un responsable<br>";
             }
-            if (String.IsNullOrEmpty(txtAccion.Text))
+            if (cboAccion.SelectedValue.Equals("0"))//String.IsNullOrEmpty(txtAccion.Text)
             {
                 msg += "Debe ingresar una accion<br>";
             }
@@ -238,6 +239,7 @@ namespace CentralizacionProblemas.forms
             lblTituloMejora.Text = "";
             txtCreadorPc.Text = "";
             txtMejora.Text = "";
+            cboAccion.SelectedValue = "0";
             cleanSeguimientoProblema();
             updListaProblema.Update();
             updTituloMejora.Update();
@@ -362,6 +364,12 @@ namespace CentralizacionProblemas.forms
         {
             setListaAccion();
             upListaAccion.Update();
+        }
+
+        protected void gvListaAccion_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvListaAccion.PageIndex = e.NewPageIndex;
+            setListaAccion();
         }
     }
 }

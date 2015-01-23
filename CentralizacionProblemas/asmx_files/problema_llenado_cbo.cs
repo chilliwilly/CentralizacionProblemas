@@ -137,6 +137,38 @@ public class problema_llenado_cbo : System.Web.Services.WebService
         return obj.setAccionSgto(nombreacc);
     }
 
+    [WebMethod]
+    public String getObservacion(String pid, String sid) 
+    {
+        String obs = "";
+        List<problema_class.DetalleSeguimiento> ls = new List<problema_class.DetalleSeguimiento>();
+        problem_bal obj = new problem_bal();
+
+        foreach (problema_class.DetalleSeguimiento ds in obj.getSeguimiento(pid)) 
+        {
+            if (ds.seguimiento_id.Equals(sid)) 
+            {
+                obs = ds.seguimiento_observacion;
+                break;
+            }
+        }
+        return obs;
+    }
+
+    [WebMethod]
+    public void updAccion(String nomv, String nom) 
+    {
+        filtro_bal obj = new filtro_bal();
+        obj.actualizaAccionSegto(nomv, nom);
+    }
+
+    [WebMethod]
+    public void delAccion(String nom) 
+    {
+        filtro_bal obj = new filtro_bal();
+        obj.borraAccionSrgto(nom);
+    }
+
     private List<CascadingDropDownNameValue> getData(string  qry_in)
     {        
         //OracleCommand cmdgd = new OracleCommand(qry_in);

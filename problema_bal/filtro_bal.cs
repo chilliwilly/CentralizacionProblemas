@@ -98,5 +98,21 @@ namespace problema_bal
 
             return valida;
         }
+
+        public void actualizaAccionSegto(String nomprev, String nom) 
+        {
+            objFiltro = new filtro_dal();
+            //int id = Convert.ToInt32(ids);
+
+            objFiltro.updateAccionSgto(nomprev, nom);
+        }
+
+        public void borraAccionSrgto(String nom) 
+        {
+            objFiltro = new filtro_dal();
+            //int id = Convert.ToInt32(ids);
+
+            objFiltro.deleteAccionSgto(nom);
+        }
     }
 }
