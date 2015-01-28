@@ -76,27 +76,27 @@ namespace problema_bal
             return ls;
         }
 
-        public Boolean setAccionSgto(String nombre) 
+        public Boolean validaAccionSgto(String nombre) 
         {
-            objFiltro = new filtro_dal();
             Boolean valida = true;
+            objFiltro = new filtro_dal();
             DataTable dt = objFiltro.selectAccionSgto();
 
-            foreach (DataRow dr in dt.Rows) 
+            foreach (DataRow dr in dt.Rows)
             {
-                if (dr["ACC_NOMBRE"].ToString().ToLower().Equals(nombre.ToLower())) 
+                if (dr["ACC_NOMBRE"].ToString().ToLower().Equals(nombre.ToLower()))
                 {
-                    valida = false;                    
+                    valida = false;
                     break;
                 }
             }
-
-            if (valida) 
-            {
-                objFiltro.insertAccionSgto(nombre);
-            }
-
             return valida;
+        }
+
+        public void setAccionSgto(String nombre) 
+        {
+            objFiltro = new filtro_dal();
+            objFiltro.insertAccionSgto(nombre);
         }
 
         public void actualizaAccionSegto(String nomprev, String nom) 

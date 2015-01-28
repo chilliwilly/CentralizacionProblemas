@@ -11,6 +11,7 @@
     <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.cookie.js"></script>    
+    <script type="text/javascript" src="../Scripts/jsAccion.js"></script>
 
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>

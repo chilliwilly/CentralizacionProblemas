@@ -131,13 +131,6 @@ public class problema_llenado_cbo : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Boolean setAccion(String nombreacc)
-    {
-        filtro_bal obj = new filtro_bal();
-        return obj.setAccionSgto(nombreacc);
-    }
-
-    [WebMethod]
     public String getObservacion(String pid, String sid) 
     {
         String obs = "";
@@ -153,6 +146,20 @@ public class problema_llenado_cbo : System.Web.Services.WebService
             }
         }
         return obs;
+    }
+
+    [WebMethod]
+    public Boolean validaAccion(String nomacc) 
+    {
+        filtro_bal obj = new filtro_bal();
+        return obj.validaAccionSgto(nomacc);
+    }
+
+    [WebMethod]
+    public void setAccion(String nombreacc)
+    {
+        filtro_bal obj = new filtro_bal();
+        obj.setAccionSgto(nombreacc);
     }
 
     [WebMethod]

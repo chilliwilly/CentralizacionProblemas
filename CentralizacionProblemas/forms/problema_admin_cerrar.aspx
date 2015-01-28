@@ -41,27 +41,14 @@
             }
 
             function guardaAccion() {
-                $.ajax({
-                    type: "POST",
-
-                    url: "/asmx_files/problema_llenado_cbo.asmx/setAccion",
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify({ "nombreacc": $("#accion").val() }),
-                    success: function (data, status) {
-                        if (data.d) {
-                            __doPostBack('<%=cboAccion.ClientID %>', '');
-                            alert("Guardado");
-                            $("#dialog-form").dialog('close');
-                        }
-                        else {
-                            alert("La accion ingresada ya existe");
-                        }
-                    },
-                    error: function (data) {
-                        alert("Error al Guardar");
-                    }
-                });
+                if (validaInputAcc($("#accion").val())) {
+                    guardarAccion($("#accion").val());
+                    __doPostBack('<%=cboAccion.ClientID %>', '');                    
+                }
+                else {
+                    alert("La accion ingresada ya existe");
+                    __doPostBack('<%=cboAccion.ClientID %>', '');
+                }
             }
         </script>
 
@@ -575,29 +562,17 @@
         }
 
         $("#btnAccAdd").on('click', function () {
-            $.ajax({
-                type: "POST",
-                url: "/asmx_files/problema_llenado_cbo.asmx/setAccion",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify({ "nombreacc": $("#nomAcc").val() }),
-                success: function (data, status) {
-                    if (data.d) {
-                        alert("Guardado");
-                        __doPostBack('<%=cboAccion.ClientID %>', '');
-                        $("#dialog-accion").dialog("close");
-                        $("#dialog-accion").dialog("open");
-                    }
-                    else {
-                        alert("La accion ingresada ya existe");
-                        __doPostBack('<%=cboAccion.ClientID %>', '');
-                    }
-                    $("#nomAcc").val("");
-                },
-                error: function (data) {
-                    alert("Error al Guardar");
-                }
-            });
+            if (validaInputAcc($("#nomAcc").val())) {
+                guardarAccion($("#nomAcc").val());
+                __doPostBack('<%=cboAccion.ClientID %>', '');                
+                $("#dialog-accion").dialog("close");
+                $("#dialog-accion").dialog("open");
+            }
+            else {
+                alert("La accion ingresada ya existe");
+                __doPostBack('<%=cboAccion.ClientID %>', '');
+            }
+            $("#nomAcc").val("");
         });
 
         $(document).ready(function () {
@@ -660,50 +635,22 @@
         }
 
         $("#btn-borra-sgto").on('click', function () {
+            borrarAccion(nomacc);
             $("#dialog-tab").dialog('close');
-            $.ajax({
-                type: "POST",
-                url: "/asmx_files/problema_llenado_cbo.asmx/delAccion",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify({ "nom": nomacc }),
-                success: function (data, status) {
-                    __doPostBack('<%=cboAccion.ClientID %>', '');
-                    $("<div id='dialog-msg-del' title='Mensaje Accion'><p>La accion ha sido borrada</p></div>").dialog({
-                        modal: true,
-                        "OK": function () {
-                            $(this).dialog('close');
-                        }
-                    });
-                },
-                error: function (data) {
-                    alert("Error al enviar datos");
-                }
-            });
+            __doPostBack('<%=cboAccion.ClientID %>', '');
         });
 
         $("#btn-actualiza-sgto").on('click', function () {
-            $("#dialog-tab").dialog('close');
-            $.ajax({
-                type: "POST",
-                url: "/asmx_files/problema_llenado_cbo.asmx/updAccion",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify({ "nomv": nomacc, "nom": $("#txt-nom-acc").val() }),
-                success: function (data, status) {
-                    __doPostBack('<%=cboAccion.ClientID %>', '');
-                    $("<div id='dialog-msg-upd' title='Mensaje Accion'><p>La accion ha sido Actualizada</p></div>").dialog({
-                        modal: true,
-                        "Cerrar": function () {
-                            $(this).dialog('close');
-                        }
-                    });
-                    $("#txt-nom-acc").val("");
-                },
-                error: function (data) {
-                    alert("Error al enviar datos");
-                }
-            });
+            if (validaInputAcc($("#txt-nom-acc").val())) {
+                actualizarAccion(nomacc, $("#txt-nom-acc").val());
+                $("#dialog-tab").dialog('close');
+                __doPostBack('<%=cboAccion.ClientID %>', '');
+            }
+            else {
+                alert("La accion ingresada ya existe");
+                __doPostBack('<%=cboAccion.ClientID %>', '');
+            }
+            $("#txt-nom-acc").val("");
         });
 
         $(function () {

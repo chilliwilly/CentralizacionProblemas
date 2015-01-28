@@ -12,7 +12,7 @@
             function muestraModal() {
                 //$(document).ready(function () {
                 $("#accion").val("");
-                $("#btnAgregaAcc").click(function () {                    
+                $("#btnAgregaAcc").click(function () {
                     $("#dialog-form").dialog({
                         buttons: {
                             "Agregar": guardaAccion
@@ -23,7 +23,7 @@
                         },
                         modal: true
                     });
-                });                
+                });
             }
 
             function muestraAccion() {
@@ -41,28 +41,15 @@
                 });
             }
 
-            function guardaAccion() {
-                $.ajax({
-                    type: "POST",
-
-                    url: "/asmx_files/problema_llenado_cbo.asmx/setAccion",
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify({ "nombreacc": $("#accion").val() }),
-                    success: function (data, status) {
-                        if (data.d) {
-                            __doPostBack('<%=cboAccion.ClientID %>', '');                            
-                            alert("Guardado");
-                            $("#dialog-form").dialog('close');
-                        }
-                        else {
-                            alert("La accion ingresada ya existe");
-                        }
-                    },
-                    error: function (data) {
-                        alert("Error al Guardar");
-                    }
-                });
+            function guardaAccion() {//$("#accion").val()
+                if (validaInputAcc($("#accion").val())) {
+                    guardarAccion($("#accion").val());
+                    __doPostBack('<%=cboAccion.ClientID %>', '');                                       
+                }
+                else {
+                    alert("La accion ingresada ya existe");
+                    __doPostBack('<%=cboAccion.ClientID %>', '');
+                }
             }
         </script>
 
@@ -295,13 +282,6 @@
                                 <span class="ui-icon ui-icon-transferthick-e-w"></span>--%>
                             </ItemTemplate>
                         </asp:TemplateField>
-
-                        <%--<asp:TemplateField HeaderText="" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="50px">
-                            <ItemTemplate>
-                                
-                            </ItemTemplate>
-                        </asp:TemplateField>--%>
-
                     </Columns>
                 </asp:GridView>
                 <asp:Button runat="server" ID="btnUpdateLista" Visible="false" 
@@ -547,53 +527,33 @@
         }
 
         function validaChkBox() {
-            //$(document).ready(function () {
                 $("<div id='dialog' title='Faltan Campos'><p>Debe seleccionar almenos un Area de Mejora y un Estado de la Mejora.</p></div>").dialog({ modal: true });
-            //});
         }
 
         function validaFechaD() {
-            //$(document).ready(function () {
                 $("<div id='dialog' title='Fecha Desde'><p>Debe seleccionar fecha creacion mejora.</p></div>").dialog({ modal: true });
-            //});
         }
 
         function validaInMejora(msg) {
-            //$(document).ready(function () {
                 $("<div id='dialog' title='Ingreso Seguimiento'><p>" + msg + ".</p></div>").dialog({ modal: true });
-            //});
         }
 
         function validaObsMejora() {
-            //$(document).ready(function () {
                 $("<div id='dialog' title='Largo Texto Segto Mejora'><p>El texto del Seguimiento de la Mejora no puede superar los 500 caracteres.</p></div>").dialog({ modal: true });
-            //});
             }
 
             $("#btnAccAdd").on('click', function () {
-                $.ajax({
-                    type: "POST",
-                    url: "/asmx_files/problema_llenado_cbo.asmx/setAccion",
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify({ "nombreacc": $("#nomAcc").val() }),
-                    success: function (data, status) {
-                        if (data.d) {
-                            alert("Guardado");
-                            __doPostBack('<%=cboAccion.ClientID %>', '');
-                            $("#dialog-accion").dialog("close");
-                            $("#dialog-accion").dialog("open");
-                        }
-                        else {
-                            alert("La accion ingresada ya existe");
-                            __doPostBack('<%=cboAccion.ClientID %>', '');
-                        }
-                        $("#nomAcc").val("");
-                    },
-                    error: function (data) {
-                        alert("Error al Guardar");
-                    }
-                });
+                if (validaInputAcc($("#nomAcc").val())) {
+                    guardarAccion($("#nomAcc").val());
+                    __doPostBack('<%=cboAccion.ClientID %>', '');                    
+                    $("#dialog-accion").dialog("close");
+                    $("#dialog-accion").dialog("open");
+                }
+                else {
+                    alert("La accion ingresada ya existe");
+                    __doPostBack('<%=cboAccion.ClientID %>', '');
+                }
+                $("#nomAcc").val("");
             });
 
             function verObservacion() {
@@ -648,50 +608,22 @@
             }
 
             $("#btn-borra-sgto").on('click', function () {
+                borrarAccion(nomacc);
                 $("#dialog-tab").dialog('close');
-                $.ajax({
-                    type: "POST",
-                    url: "/asmx_files/problema_llenado_cbo.asmx/delAccion",
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify({ "nom": nomacc }),
-                    success: function (data, status) {
-                        __doPostBack('<%=cboAccion.ClientID %>', '');
-                        $("<div id='dialog-msg-del' title='Mensaje Accion'><p>La accion ha sido borrada</p></div>").dialog({
-                            modal: true,
-                            "OK": function () {
-                                $(this).dialog('close');
-                            }
-                        });
-                    },
-                    error: function (data) {
-                        alert("Error al enviar datos");
-                    }
-                });
+                __doPostBack('<%=cboAccion.ClientID %>', '');                
             });
 
-            $("#btn-actualiza-sgto").on('click', function () {
-                $("#dialog-tab").dialog('close');
-                $.ajax({
-                    type: "POST",
-                    url: "/asmx_files/problema_llenado_cbo.asmx/updAccion",
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify({ "nomv": nomacc, "nom": $("#txt-nom-acc").val() }),
-                    success: function (data, status) {
-                        __doPostBack('<%=cboAccion.ClientID %>', '');
-                        $("<div id='dialog-msg-upd' title='Mensaje Accion'><p>La accion ha sido Actualizada</p></div>").dialog({
-                            modal: true,
-                            "Cerrar": function () {
-                                $(this).dialog('close');
-                            }
-                        });
-                        $("#txt-nom-acc").val("");
-                    },
-                    error: function (data) {
-                        alert("Error al enviar datos");
-                    }
-                });
+            $("#btn-actualiza-sgto").on('click', function () {//$("#txt-nom-acc").val()
+                if (validaInputAcc($("#txt-nom-acc").val())) {
+                    actualizarAccion(nomacc, $("#txt-nom-acc").val());
+                    $("#dialog-tab").dialog('close');
+                    __doPostBack('<%=cboAccion.ClientID %>', '');
+                }
+                else {
+                    alert("La accion ingresada ya existe");
+                    __doPostBack('<%=cboAccion.ClientID %>', '');
+                }
+                $("#txt-nom-acc").val("");
             });   
 
             $(document).ready(function () {
@@ -704,6 +636,6 @@
 
             $(function () {
                 $("#tab").tabs();
-            });
+            });         
     </script>
 </asp:Content>
